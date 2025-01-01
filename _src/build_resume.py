@@ -1,17 +1,18 @@
+# from idlelib.configdialog import font_sample_text
+# from reportlab.lib.styles import getSampleStyleSheet
+# from reportlab.lib.styles import ParagraphStyle
+# from reportlab.platypus import Paragraph
 # from reportlab.lib.pagesizes import letter
-from idlelib.configdialog import font_sample_text
-# user driver ride userdriverride  payment
+# from reportlab.platypus import SimpleDocTemplate, Paragraph
+# from reportlab.lib.styles import getSampleStyleSheet
+# from reportlab.lib.pagesizes import letter
 from reportlab.lib.pagesizes import C4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
-from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 
-
+RESUME_NAME = "NITESH KUMAR SINGH"
 EMAILID = "niteshksmgs@gmail.com"
 PHONE = "+91-9882545465"
 LINKEDIN = "www.linkedin.com/in/niteshksmgs19/"
@@ -26,10 +27,7 @@ ADDRESS = "Bangalore, India"
 #     alignment=4
 # )
 
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.platypus import Paragraph
-from reportlab.lib.styles import getSampleStyleSheet
+
 
 
 # def draw_aligned_text(canvas, text, x, y, width):
@@ -122,14 +120,14 @@ def create_stylized_resume_pdf(file_name):
         if bold:
             pdf.setFont("Helvetica-Bold", 12)
         else:
-            pdf.setFont("Helvetica", 12)
+            pdf.setFont("Helvetica", 11)
         for line in text.split("\n"):
             # paragraph = Paragraph(line,style=PARAGRAPH_STYLE)
             # width,height = paragraph.wrap(usable_width, usable_height)
             # print(width,height)
 
             pdf.drawString(30 + indent, y_position, line)
-            y_position = y_position - 5
+            y_position = y_position - 8
             print(f"{x_position},{y_position} ,draw_text {text}")
         return y_position
 
@@ -140,7 +138,7 @@ def create_stylized_resume_pdf(file_name):
     pdf.drawCentredString(
         page_width/2,
         y_position,
-        "NITESH KUMAR SINGH",
+        f"{RESUME_NAME}",
         mode=0)
     y_position = draw_text(
         f"{ADDRESS}  |  {PHONE}  |  {EMAILID}  |  {LINKEDIN}",
@@ -222,8 +220,8 @@ def create_stylized_resume_pdf(file_name):
         # print(y_position, "loop")
         y_position = draw_paragraph_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
         # print(y_position, "return loop")
-    y_position = y_position - 14
-    y_position = y_position - 12
+    # y_position = y_position - 14
+    y_position = y_position - 10
 
     # Skills
     y_position = add_title("Skills:", y_position)
@@ -243,20 +241,21 @@ def create_stylized_resume_pdf(file_name):
         # print(y_position, "loop")
         y_position = draw_paragraph_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
         # print(y_position, "return loop")
-    y_position = y_position - 14
+    y_position = y_position - 10
     # y_position = draw_paragraph_text(pdf, f"{detail}", 30, y_position, usable_width)
     # print(y_position, "return loop")
     # y_position = y_position - 12
 
     # Publications
     y_position = add_title("Publications:", y_position)
-    publication_detail = ["Co-Author: Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels",
-        "Journal: International Journal of Electronics and Communications, Published: September 1, 2018",]
+    publication_detail = ["<b>Co-Author:</b> Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels",
+        "<b>Journal:</b> International Journal of Electronics and Communications",
+        "<b>Published:</b> September 1, 2018",]
     for detail_item in publication_detail:
         # print(y_position, "loop")
         y_position = draw_paragraph_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
         # print(y_position, "return loop")
-    y_position = y_position - 14
+    y_position = y_position - 10
     # y_position = add_title("Publications:", y_position)
     # y_position = draw_text(
     #     'Co-Author: "Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels"\n'
@@ -270,11 +269,13 @@ def create_stylized_resume_pdf(file_name):
 
     # Hobbies & Interests
     y_position = add_title("Hobbies & Interests:", y_position)
-    y_position = y_position - 8
-    y_position = draw_text(
-        "Traveling and exploring places, Listening to music, Chess, Badminton, and Table Tennis",
-        y_position
-    )
+    # y_position = y_position - 8
+    # y_position = draw_text(
+    #     ,
+    #     y_position
+    # )
+    hobbies_item = "Traveling and exploring places, Listening to music, Chess, Badminton, and Table Tennis"
+    draw_paragraph_text(pdf, f"{hobbies_item}", x_position, y_position, usable_width)
 
     # Save the PDF
     pdf.save()
