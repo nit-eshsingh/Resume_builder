@@ -7,83 +7,153 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import Paragraph
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
 
 
 EMAILID = "niteshksmgs@gmail.com"
 PHONE = "+91-9882545465"
-LINKEDIN = "linkedin.com/in/niteshksmgs19/"
+LINKEDIN = "www.linkedin.com/in/niteshksmgs19/"
 ADDRESS = "Bangalore, India"
 
-styles = getSampleStyleSheet()
-style = styles['Normal']
+# styles = getSampleStyleSheet()
+# style = styles['Normal']
+#
+# PARAGRAPH_STYLE = ParagraphStyle(
+#     "Style",
+#     fontName='Times-Roman',
+#     alignment=4
+# )
 
-PARAGRAPH_STYLE = ParagraphStyle(
-    "Style",
-    fontName='Times-Roman',
-    alignment=4
-)
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+
+
+# def draw_aligned_text(canvas, text, x, y, width):
+#     # Create a Paragraph with justified alignment
+#     styles = getSampleStyleSheet()
+#     style = styles['BodyText']
+#     style.alignment = 4  # 4 corresponds to justified alignment
+#
+#     # Create a Paragraph
+#     paragraph = Paragraph(text, style)
+#
+#     # Create a "fake" frame to wrap and justify text
+#     _, height = paragraph.wrap(width, 0)  # Calculate the height needed for the text
+#     paragraph.drawOn(canvas, x, y - height)  # Draw the text on the canvas
+#
+#
+# # Define text and canvas
+# text = "This is an example of a long paragraph that will be wrapped and aligned with justification on a canvas. Justified alignment ensures that the text is evenly distributed across the width, creating a clean and professional appearance."
+#
+# c = canvas.Canvas("justified_text_wrap.pdf", pagesize=letter)
+# page_width, page_height = letter
+#
+# # Define position and width for the text block
+# x = 50
+# y = page_height - 50
+# text_width = 500
+#
+# # Draw justified text
+# draw_aligned_text(c, text, x, y, text_width)
+#
+# # Save the canvas
+# c.save()
 
 
 def create_stylized_resume_pdf(file_name):
     # Create the PDF canvas
     pdf = canvas.Canvas(file_name, pagesize=C4)
     page_width, page_height = C4 # page_width 649 page_height 918
-    left_margin = right_margin = top_margin = bottom_margin = 50
-    usable_width = page_width - left_margin - right_margin
-    usable_height = page_height - top_margin - bottom_margin
+    left_margin = 30
+    right_margin = 50
+    top_margin = 30
+    bottom_margin = 30
+    usable_width = int(page_width) - left_margin - right_margin
+    usable_height = int(page_height) - top_margin - bottom_margin
 
     # Starting y-position for content
-    x_postion = left_margin
-    y_position = page_height - top_margin # 868
+    x_position = left_margin
+    y_position = int(page_height) - top_margin # 868
 
     # Function to draw a horizontal line
-    def draw_line(y):
-        pdf.setStrokeColor(colors.black)
+    def draw_line(y_position):
+        # pass
+        pdf.setStrokeColor(colors.rgb2cmyk(0,0,9))
         pdf.setLineWidth(1)
-        pdf.line(30, y, page_width - 30, y)
-        return y - 5
+        pdf.line(left_margin, y_position, usable_width + right_margin, y_position)
+        print(f"{y_position} ,drawed_line")
+        return y_position - 5
+
+
 
     # Function to add a section title with a horizontal line
-    def add_title(text, y):
-        y -= 10
+    def add_title(text, y_position):
+        y_position = y_position - 10
         pdf.setFont("Helvetica-Bold", 14)
-        pdf.setFillColor(colors.blue)
-        pdf.drawString(30, y, text)
+        pdf.setFillColor(colors.rgb2cmyk(0,0,9))
+        pdf.drawString(30, y_position, text)
         pdf.setFillColor(colors.black)
-        return draw_line(y - 10)
+        print(f"{x_position},{y_position},add_title {text}")
+        return draw_line(y_position - 5)
+
+    def draw_paragraph_text(pdf, text, x_position, y_position, usable_width):
+        # Create a Paragraph with justified alignment
+        styles = getSampleStyleSheet()
+        style = styles['BodyText']
+        style.alignment = 4  # 4 corresponds to justified alignment
+
+        # Create a Paragraph
+        paragraph = Paragraph(text, style)
+
+        # Create a "fake" frame to wrap and justify text
+        _, height = paragraph.wrap(usable_width, 0)  # Calculate the height needed for the text
+        paragraph.drawOn(pdf, x_position + 20, int(y_position) - height)
+        print(f"before y_position {y_position}")
+        y_position = y_position - height
+        print(f"{x_position},{y_position} ,draw_aligned_text {text}")
+        return y_position# Draw the text on the canvas
 
     # Function to add regular text
-    def add_text(text, y, indent=0, bold=False):
+    def draw_text(text, y_position, indent=0, bold=False):
         if bold:
-            pdf.setFont("Helvetica-Bold", 14)
+            pdf.setFont("Helvetica-Bold", 12)
         else:
             pdf.setFont("Helvetica", 12)
         for line in text.split("\n"):
-            paragraph = Paragraph(line,style=PARAGRAPH_STYLE)
-            width,height = paragraph.wrap(usable_width, usable_height)
-            print(width,height)
+            # paragraph = Paragraph(line,style=PARAGRAPH_STYLE)
+            # width,height = paragraph.wrap(usable_width, usable_height)
+            # print(width,height)
 
-            pdf.drawString(30 + indent, y, line)
-            y = y - 14
-        return y
+            pdf.drawString(30 + indent, y_position, line)
+            y_position = y_position - 5
+            print(f"{x_position},{y_position} ,draw_text {text}")
+        return y_position
 
     # Header
     pdf.setFont("Helvetica-Bold", 20)
-    pdf.setFillColor(colors.black)
+    pdf.setFillColor(colors.rgb2cmyk(0,0,1))
     # pdf.drawString(30,y_position, "NITESH KUMAR SINGH")
     pdf.drawCentredString(
         page_width/2,
         y_position,
         "NITESH KUMAR SINGH",
         mode=0)
-    y_position = add_text(
-        f"{ADDRESS} | {PHONE} | {EMAILID} | {LINKEDIN}",
-        y_position - 20
+    y_position = draw_text(
+        f"{ADDRESS}  |  {PHONE}  |  {EMAILID}  |  {LINKEDIN}",
+        y_position - 20, indent=10
     )
-    y_position = draw_line(y_position - 10)
+    # personal_detail = f"<b>{ADDRESS} | {PHONE} | <u>{EMAILID}</u> | <u>{LINKEDIN}</u></b>"
+    # y_position = draw_paragraph_text(pdf, f"{personal_detail}", x_position, y_position, usable_width)
+    # # print(y_position, "return loop")
+    # y_position = y_position - 14
+    # y_position = draw_line(y_position - 10)
     pdf.setFont("Helvetica", 12)
     pdf.setFillColor(colors.black)
-    # y_position = add_text(
+    # y_position = draw_text(
     #     "A self-directed and motivated engineer experienced working effectively in dynamic environments. \n"
     #     "Fluent in Python programming language and DevOps tools like Jenkins and AWS.",
     #     y_position
@@ -95,14 +165,16 @@ def create_stylized_resume_pdf(file_name):
 
     # Professional Experience
     y_position = add_title("Experience:", y_position)
+    print(y_position, "Experience")
     experiences = [
         {
             "role": "Technical Specialist",
             "company": "CONTINENTAL AG",
             "duration": "July 2022 - Present",
             "details": [
-                "\u2022 Designed and implemented the ETL transformation process from Kafka streams to MongoDB, resulting in continuous data processing and a significant reduction in latency.",
-                "\u2022 Developed a multi-branch pipeline using Jenkinsfile, streamlining the deployment process and ensuring efficient code integration across different projects.",
+                "\u2022 Implemented an <b>ETL</b> process to transform <b>Kafka</b> streams into MongoDB, enabling continuous data processing with reduced latency.",
+                "\u2022 Developed a multi-branch pipeline using Jenkinsfile, streamlining the deployment process "
+                "and ensuring efficient code integration across different projects.",
                 "\u2022 Successfully deployed our local server on AWS using a Linux-based EC2 server and ODBC connector installation, optimizing infrastructure and enabling seamless scalability.",
                 "\u2022 Utilized Plant UML, database schemas, sequence diagrams, dynamic logger, and Confluence to ensure continuity in operations and effective collaboration with team members.",
                 "\u2022 Implemented static tool analyzers, including SonarQube, to improve code quality and maintain high standards of software development.",
@@ -127,50 +199,80 @@ def create_stylized_resume_pdf(file_name):
                 "\u2022 Created a robust back-end data handling structure using established software design patterns, enhancing the reliability and scalability of the software development.",
                 "\u2022 Optimized software performance by reducing execution time by up to 50%, improving overall system efficiency and responsiveness.",
                 "\u2022 Implemented Jenkins pipeline stages, including repository checkout, static code analyzer, test run on source code, FOSS ID run (OSS report generation), executable creation, test run on executable and delivery.",
-                "\u2022 Designed a user-friendly HMI panel for control-x hardware used for Drives and controls using UI/UX Touchgfx software from stm32."
+                "\u2022 Designed a user-friendly HMI panel for control-x hardware used for Drives and controls using UI/UX Touchgfx software from stm32.",
             ]
         }
     ]
 
     for exp in experiences:
-        y_position = add_text(f"{exp['role']} - {exp['company']} ({exp['duration']})", y_position, bold=True)
+        y_position = y_position - 8
+        print(y_position, "experiences in loop")
+        y_position = draw_text(f"{exp['role']} | {exp['company']} ({exp['duration']})", y_position, bold=True)
         for detail in exp['details']:
-            y_position = add_text(f"{detail}", y_position, indent=10)
+            # print(y_position, "loop")
+            y_position = draw_paragraph_text(pdf,f"{detail}",x_position, y_position, usable_width)
+            # print(y_position, "return loop")
+        y_position = y_position - 14
 
     # Education
     y_position = add_title("Education:", y_position)
-    y_position = add_text(
-        "B.Tech in Electronics and Communication Engineering, NIT Hamirpur (2014 - 2018) | 8.21 CGPA\n"
-        "Senior Secondary, Laxmi Public School (2011 - 2013) | 93.6%",
-        y_position
-    )
+    education_detail = ["<b>B.Tech</b> : Electronics and Communication Engineering,<b>NIT Hamirpur</b> (2014 - 2018) | 8.21 CGPA ",
+              "<b>Senior Secondary</b> : Laxmi Public School (2011 - 2013) | 93.6% </p>"]
+    for detail_item in education_detail:
+        # print(y_position, "loop")
+        y_position = draw_paragraph_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
+        # print(y_position, "return loop")
+    y_position = y_position - 14
+    y_position = y_position - 12
 
     # Skills
     y_position = add_title("Skills:", y_position)
-    y_position = add_text(
-        "Python: PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2\n"
-        "DevOps: AWS, Jenkins, Groovy, Batch Script, FOSS ID\n"
-        "Design Patterns: UML Diagrams, DB Schemas, Sequence Diagram, ETL\n"
-        "Others: MongoDB, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate",
-        y_position
-    )
+    # y_position = draw_text(
+    #     "Python: PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2\n"
+    #     "DevOps: AWS, Jenkins, Groovy, Batch Script, FOSS ID\n"
+    #     "Design Patterns: UML Diagrams, DB Schemas, Sequence Diagram, ETL\n"
+    #     "Others: MongoDB, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate",
+    #     y_position
+    # )
+    skill_detail = ["<b>Python:</b>PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2.\n",
+        "<b>DevOps:</b> AWS, Jenkins, Groovy, Batch Script, FOSS ID.\n",
+        "<b>Design Patterns:</b> UML Diagrams, DB Schemas, Sequence Diagram, ETL.\n",
+        "<b>Others:</b> MongoDB, PostgreSQL, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate."]
+
+    for detail_item in skill_detail:
+        # print(y_position, "loop")
+        y_position = draw_paragraph_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
+        # print(y_position, "return loop")
+    y_position = y_position - 14
+    # y_position = draw_paragraph_text(pdf, f"{detail}", 30, y_position, usable_width)
+    # print(y_position, "return loop")
+    # y_position = y_position - 12
 
     # Publications
     y_position = add_title("Publications:", y_position)
-    y_position = add_text(
-        'Co-Author: "Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels"\n'
-        "Journal: International Journal of Electronics and Communications\nPublished: September 1, 2018",
-        y_position
-    )
+    publication_detail = ["Co-Author: Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels",
+        "Journal: International Journal of Electronics and Communications, Published: September 1, 2018",]
+    for detail_item in publication_detail:
+        # print(y_position, "loop")
+        y_position = draw_paragraph_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
+        # print(y_position, "return loop")
+    y_position = y_position - 14
+    # y_position = add_title("Publications:", y_position)
+    # y_position = draw_text(
+    #     'Co-Author: "Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels"\n'
+    #     "Journal: International Journal of Electronics and Communications\nPublished: September 1, 2018",
+    #     y_position
+    # )
 
     # Languages
-    y_position = add_title("Languages:", y_position)
-    y_position = add_text("Hindi (Native)\nEnglish (Fluent)", y_position)
+    # y_position = add_title("Languages:", y_position)
+    # y_position = draw_text("Hindi (Native)\nEnglish (Fluent)", y_position)
 
     # Hobbies & Interests
     y_position = add_title("Hobbies & Interests:", y_position)
-    y_position = add_text(
-        "Traveling and exploring places\nListening to music\nPlaying Cricket, Chess, Badminton, and Table Tennis",
+    y_position = y_position - 8
+    y_position = draw_text(
+        "Traveling and exploring places, Listening to music, Chess, Badminton, and Table Tennis",
         y_position
     )
 
