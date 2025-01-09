@@ -207,9 +207,18 @@ def create_stylized_resume_pdf(file_name):
     bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
     experiences = [
         {
+            "role": "Senior Software Engineer",
+            "company": "BMW Techworks",
+            "duration": "Jan 2025 - Present",
+            "details": [
+                f"\u2022 Developed a multi-branch pipeline using <b>Jenkinsfile</b>, streamlining the deployment process "
+                f"and ensuring efficient code integration across different projects.",
+            ]
+        },
+        {
             "role": "Technical Specialist",
-            "company": "CONTINENTAL AG",
-            "duration": "July 2022 - Present",
+            "company": "CONTINENTAL Automotive",
+            "duration": "July 2022 - Jan 2025",
             "details": [
                 f"\u2022 Implemented an {bold_characters.get('ETL')} process to transform {bold_characters.get('Kafka')} streams into MongoDB, enabling continuous data processing with reduced latency.",
                 f"\u2022 Developed a multi-branch pipeline using <b>Jenkinsfile</b>, streamlining the deployment process "
@@ -330,7 +339,7 @@ def create_stylized_resume_pdf(file_name):
     pdf.save()
 
 # File name for the PDF
-file_name = "Nitesh_Kumar_Singh_Resume.pdf"
+file_name = "Nitesh_Kumar_Singh.pdf"
 create_stylized_resume_pdf(file_name)
 
 print(f"PDF file '{file_name}' created successfully!")
