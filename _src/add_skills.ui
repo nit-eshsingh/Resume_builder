@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddSkillsWindow</class>
+ <widget class="QMainWindow" name="AddSkillsWindow">
+  <property name="geometry">
+   <rect>
+    <x>100</x>
+    <y>100</y>
+    <width>500</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Add Skills</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QLabel" name="labelTitle">
+      <property name="text">
+       <string>Add Skills</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelLanguages">
+      <property name="text">
+       <string>Languages</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="inputLanguages"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelLibrariesFramework">
+      <property name="text">
+       <string>Libraries/Frameworks</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="inputLibrariesFramework"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelToolsTechnologies">
+      <property name="text">
+       <string>Tools/Technologies</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="inputToolsTechnologies"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelDatabases">
+      <property name="text">
+       <string>Databases</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="inputDatabases"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelDesignPatterns">
+      <property name="text">
+       <string>Design Patterns</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="inputDesignPatterns"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="labelOthers">
+      <property name="text">
+       <string>Others</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="inputOthers"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="saveButton">
+      <property name="text">
+       <string>Save</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

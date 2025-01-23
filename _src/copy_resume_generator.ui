@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ResumeGenerator</class>
+ <widget class="QMainWindow" name="ResumeGenerator">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>880</width>
+    <height>406</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Resume Generator</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="2">
+     <layout class="QGridLayout" name="previewLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelPreview">
+        <property name="text">
+         <string>Resume Preview</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTextBrowser" name="previewBrowser">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="4" column="1">
+       <widget class="QLineEdit" name="inputEmail"/>
+      </item>
+      <item row="24" column="1">
+       <widget class="QPushButton" name="buttonremoveSkills">
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item row="25" column="1">
+       <widget class="QLabel" name="labelEducation">
+        <property name="text">
+         <string>Publication/ Achievement</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" alignment="Qt::AlignLeft">
+       <widget class="QLabel" name="labelName">
+        <property name="text">
+         <string>Full Name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="labelLocation">
+        <property name="text">
+         <string>Location</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="labelEmail">
+        <property name="text">
+         <string>Email</string>
+        </property>
+       </widget>
+      </item>
+      <item row="22" column="1">
+       <widget class="QLabel" name="labelSkills">
+        <property name="text">
+         <string>Skills</string>
+        </property>
+       </widget>
+      </item>
+      <item row="29" column="1">
+       <widget class="QPushButton" name="generateButton">
+        <property name="text">
+         <string>Generate PDF</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1">
+       <widget class="QLineEdit" name="inputHobies"/>
+      </item>
+      <item row="26" column="1">
+       <widget class="QTextEdit" name="inputEducation"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="inputName"/>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLabel" name="labelGithub">
+        <property name="text">
+         <string>Website/Github</string>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="3">
+       <widget class="QPushButton" name="buttonremoveExperience">
+        <property name="text">
+         <string>Remove</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="1">
+       <widget class="QLabel" name="labelSummary">
+        <property name="text">
+         <string>Summary</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="1">
+       <widget class="QLabel" name="labelHobies">
+        <property name="text">
+         <string>Hobies/Interest</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="labelLinkedin">
+        <property name="text">
+         <string>linkedin</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QLineEdit" name="inputGithub"/>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="inputPhone"/>
+      </item>
+      <item row="16" column="2">
+       <widget class="QPushButton" name="buttonaddExperience">
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="inputLocation">
+        <property name="maximumSize">
+         <size>
+          <width>264</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="labelPhone">
+        <property name="text">
+         <string>Phone</string>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="1" alignment="Qt::AlignLeft">
+       <widget class="QLabel" name="labelExperience">
+        <property name="text">
+         <string>Work Experience:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLineEdit" name="inputLinkedin"/>
+      </item>
+      <item row="23" column="1">
+       <widget class="QPushButton" name="buttonaddSkills">
+        <property name="text">
+         <string>Add</string>
+        </property>
+       </widget>
+      </item>
+      <item row="15" column="1" colspan="3">
+       <widget class="QTextEdit" name="inputSummary"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
