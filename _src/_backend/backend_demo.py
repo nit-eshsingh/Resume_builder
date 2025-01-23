@@ -83,7 +83,7 @@ class ResumeGenerator(QMainWindow):
 
         # Generate the PDF
         try:
-            filename = "resume.pdf"
+            filename = "../resume.pdf"
             pdf = canvas.Canvas(filename, pagesize=C4)
             width, height = C4
 

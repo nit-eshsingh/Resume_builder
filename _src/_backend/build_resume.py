@@ -1,3 +1,11 @@
+# from idlelib.configdialog import font_sample_text
+# from reportlab.lib.styles import getSampleStyleSheet
+# from reportlab.lib.styles import ParagraphStyle
+# from reportlab.platypus import Paragraph
+# from reportlab.lib.pagesizes import letter
+# from reportlab.platypus import SimpleDocTemplate, Paragraph
+# from reportlab.lib.styles import getSampleStyleSheet
+# from reportlab.lib.pagesizes import letter
 from reportlab.lib.pagesizes import C4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
@@ -199,18 +207,9 @@ def create_stylized_resume_pdf(file_name):
     bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
     experiences = [
         {
-            "role": "Senior Software Engineer",
-            "company": "BMW Techworks",
-            "duration": "Jan 2025 - Present",
-            "details": [
-                f"\u2022 Developed a multi-branch pipeline using <b>Jenkinsfile</b>, streamlining the deployment process "
-                f"and ensuring efficient code integration across different projects.",
-            ]
-        },
-        {
             "role": "Technical Specialist",
-            "company": "CONTINENTAL Automotive",
-            "duration": "July 2022 - Jan 2025",
+            "company": "CONTINENTAL AG",
+            "duration": "July 2022 - Present",
             "details": [
                 f"\u2022 Implemented an {bold_characters.get('ETL')} process to transform {bold_characters.get('Kafka')} streams into MongoDB, enabling continuous data processing with reduced latency.",
                 f"\u2022 Developed a multi-branch pipeline using <b>Jenkinsfile</b>, streamlining the deployment process "
@@ -269,8 +268,7 @@ def create_stylized_resume_pdf(file_name):
     skill_detail = ["<b>Python:</b>PySpark, fastapi, PyQt5, Web Scraping, pandas, numpy, psycopg2.\n",
                     "<b>DevOps :</b> AWS, Jenkins, Groovy, Batch Script, FOSS ID.\n",
                     "<b>Design Patterns :</b> UML Diagrams, DB Schemas, Sequence Diagram, ETL.\n",
-                    "<b>Databases :</b> MongoDB, PostgreSQL, Redis, Elastic Search.\n"
-                    "<b>Others :</b> GraphQL, Kafka, Artifactory Servers(Jfrog), SonarQube, Power Automate."]
+                    "<b>Others :</b> MongoDB, PostgreSQL, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate."]
 
     for detail_item in skill_detail:
         y_position = write_justified_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
@@ -332,7 +330,7 @@ def create_stylized_resume_pdf(file_name):
     pdf.save()
 
 # File name for the PDF
-file_name = "_samples/Nitesh_Kumar_Singh.pdf"
+file_name = "../_samples/Nitesh_Kumar_Singh_Resume.pdf"
 create_stylized_resume_pdf(file_name)
 
 print(f"PDF file '{file_name}' created successfully!")
