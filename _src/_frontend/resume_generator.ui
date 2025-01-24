@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>876</width>
-    <height>813</height>
+    <height>582</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,21 +22,47 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="2">
-     <layout class="QGridLayout" name="previewLayout">
-      <item row="1" column="0">
+     <layout class="QVBoxLayout" name="previewLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
+      </property>
+      <item>
+       <widget class="QLabel" name="labelPreview">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="text">
+         <string>Resume Preview</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::RichText</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QTextBrowser" name="previewBrowser">
         <property name="enabled">
          <bool>true</bool>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelPreview">
-        <property name="text">
-         <string>Resume Preview</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
        </widget>
       </item>
@@ -44,13 +70,6 @@
     </item>
     <item row="0" column="0">
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="17" column="2" colspan="2">
-       <widget class="QTextEdit" name="inputSummary">
-        <property name="placeholderText">
-         <string>Objective</string>
-        </property>
-       </widget>
-      </item>
       <item row="18" column="2">
        <widget class="QPushButton" name="buttonaddExperience">
         <property name="text">
@@ -70,7 +89,7 @@
         </property>
        </widget>
       </item>
-      <item row="27" column="1">
+      <item row="26" column="1">
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Certification/Achievement</string>
@@ -78,7 +97,7 @@
        </widget>
       </item>
       <item row="25" column="2">
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="buttonaddpublication">
         <property name="text">
          <string>Add</string>
         </property>
@@ -101,8 +120,12 @@
         </property>
        </widget>
       </item>
-      <item row="26" column="1" colspan="3">
-       <widget class="QTableView" name="tableView"/>
+      <item row="17" column="2" colspan="2">
+       <widget class="QTextEdit" name="inputSummary">
+        <property name="placeholderText">
+         <string>Objective</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="3">
        <widget class="QLabel" name="labelPhone">
@@ -134,8 +157,12 @@
         </property>
        </widget>
       </item>
-      <item row="21" column="1" colspan="3">
-       <widget class="QTableView" name="tableSkills"/>
+      <item row="0" column="1" colspan="3">
+       <widget class="QPushButton" name="generateButton">
+        <property name="text">
+         <string>Generate PDF</string>
+        </property>
+       </widget>
       </item>
       <item row="16" column="1">
        <widget class="QLabel" name="labelGithub">
@@ -191,12 +218,6 @@
         </property>
        </widget>
       </item>
-      <item row="23" column="1" colspan="3">
-       <widget class="QTableView" name="tableView_3"/>
-      </item>
-      <item row="28" column="1" colspan="3">
-       <widget class="QTableView" name="tableView_2"/>
-      </item>
       <item row="20" column="2">
        <widget class="QPushButton" name="buttonaddSkills">
         <property name="text">
@@ -211,7 +232,7 @@
         </property>
        </widget>
       </item>
-      <item row="27" column="3">
+      <item row="26" column="3">
        <widget class="QPushButton" name="pushButton_4">
         <property name="text">
          <string>Remove</string>
@@ -221,11 +242,11 @@
       <item row="22" column="3">
        <widget class="QPushButton" name="pushButton_6">
         <property name="text">
-         <string>PushButton</string>
+         <string>Remove</string>
         </property>
        </widget>
       </item>
-      <item row="27" column="2">
+      <item row="26" column="2">
        <widget class="QPushButton" name="pushButton_3">
         <property name="text">
          <string>Add</string>
@@ -267,6 +288,16 @@
         </property>
        </widget>
       </item>
+      <item row="21" column="1" colspan="3">
+       <widget class="QTableView" name="tableSkills">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="2">
        <widget class="QLabel" name="labelLocation">
         <property name="text">
@@ -282,14 +313,11 @@
        </widget>
       </item>
       <item row="22" column="2">
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="buttonaddeducation">
         <property name="text">
-         <string>PushButton</string>
+         <string>Add</string>
         </property>
        </widget>
-      </item>
-      <item row="19" column="1" colspan="3">
-       <widget class="QTableView" name="tableExperience"/>
       </item>
       <item row="20" column="3">
        <widget class="QPushButton" name="buttonremoveSkills">
@@ -312,10 +340,13 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QPushButton" name="generateButton">
-        <property name="text">
-         <string>Generate PDF</string>
+      <item row="23" column="1" colspan="3">
+       <widget class="QTableView" name="tableEducation">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
         </property>
        </widget>
       </item>

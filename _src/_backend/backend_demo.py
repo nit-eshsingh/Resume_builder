@@ -17,7 +17,7 @@ from reportlab.pdfgen import canvas
 class ResumeGenerator(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("resume_generator.ui", self)
+        uic.loadUi("../_frontend/resume_generator.ui", self)
 
         # Create a scroll area for the preview
         self.scroll_area = QScrollArea()
@@ -33,9 +33,15 @@ class ResumeGenerator(QMainWindow):
 
         # Connect input fields to update the preview
         self.inputName.textChanged.connect(self.update_preview)
-        self.inputEmail.textChanged.connect(self.update_preview)
+        self.inputLocation.textChanged.connect(self.update_preview)
         self.inputPhone.textChanged.connect(self.update_preview)
+
+        self.inputLinkedin.textChanged.connect(self.update_preview)
+        self.inputEmail.textChanged.connect(self.update_preview)
+        self.inputHobies.textChanged.connect(self.update_preview)
+        self.inputGithub.textChanged.connect(self.update_preview)
         self.inputSummary.textChanged.connect(self.update_preview)
+
         # self.inputEducation.textChanged.connect(self.update_preview)
         # self.inputExperience.textChanged.connect(self.update_preview)
         # self.inputSkfggills.textChanged.connect(self.update_preview)
@@ -46,8 +52,12 @@ class ResumeGenerator(QMainWindow):
     def update_preview(self):
         # Get input data  26000 16000
         name = self.inputName.text()
-        email = self.inputEmail.text()
+        location = self.inputLocation.text()
         phone = self.inputPhone.text()
+        linkedin = self.inputLinkedin.text()
+        email = self.inputEmail.text()
+        hobies = self.inputHobies.text()
+        github = self.inputGithub.text()
         summary = self.inputSummary.toPlainText()
         # education = self.inputEducation.toPlainText()
         # experience = self.inputExperience.toPlainText()
@@ -56,10 +66,14 @@ class ResumeGenerator(QMainWindow):
         # Create a preview
         # Create a preview text
         new_line = "\n"
-        b = (
+        preview_text = (
             f"<b>Full Name:</b> {name}<br>"
+            f"<b>Location:</b> {location}<br>"
+            f"<b>Phone:</b> {phone}<br>"
+            f"<b>Linkedin:</b> {linkedin}<br>"
             f"<b>Email:</b> {email}<br>"
-            f"<b>Phone:</b> {phone}<br><br>"
+            f"<b>Phone:</b> {hobies}<br>"
+            f"<b>Github:</b> {github}<br>"
             f"<b>Professional Summary:</b><br>{summary.replace(new_line, '<br>')}<br><br>"
             # f"<b>Education:</b><br>{education.replace(new_line, '<br>')}<br><br>"
             # f"<b>Work Experience:</b><br>{experience.replace(new_line, '<br>')}<br><br>"
@@ -70,8 +84,12 @@ class ResumeGenerator(QMainWindow):
     def generate_pdf(self):
         # Get user input
         name = self.inputName.text()
-        email = self.inputEmail.text()
+        location = self.inputLocation.text()
         phone = self.inputPhone.text()
+        linkedin = self.inputLinkedin.text()
+        email = self.inputEmail.text()
+        hobies = self.inputHobies.text()
+        github = self.inputGithub.text()
         summary = self.inputSummary.toPlainText()
         # education = self.inputEducation.toPlainText()
         # experience = self.inputExperience.toPlainText()
