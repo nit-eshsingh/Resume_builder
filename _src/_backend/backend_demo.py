@@ -41,7 +41,7 @@ class ResumeGenerator(QMainWindow):
         self.inputHobies.textChanged.connect(self.update_preview)
         self.inputGithub.textChanged.connect(self.update_preview)
         self.inputSummary.textChanged.connect(self.update_preview)
-
+        # self.button
         # self.inputEducation.textChanged.connect(self.update_preview)
         # self.inputExperience.textChanged.connect(self.update_preview)
         # self.inputSkfggills.textChanged.connect(self.update_preview)

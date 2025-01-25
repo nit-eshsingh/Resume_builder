@@ -22,11 +22,11 @@
    </property>
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="2">
-     <layout class="QGridLayout" name="previewLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetNoConstraint</enum>
       </property>
-      <item row="0" column="0">
+      <item>
        <widget class="QLabel" name="labelPreview">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -53,7 +53,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item>
        <widget class="QTextBrowser" name="previewBrowser">
         <property name="enabled">
          <bool>true</bool>

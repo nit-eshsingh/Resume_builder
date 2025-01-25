@@ -12,7 +12,7 @@ class AddWorkExperienceApp(QMainWindow):
     def __init__(self):
         super().__init__()
         # Load the UI file
-        uic.loadUi("work_experience.ui", self)
+        uic.loadUi("../_frontend/work_experience.ui", self)
 
         # Initialize an empty list to store work experience data
         self.work_experience_data = []

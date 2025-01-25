@@ -97,7 +97,7 @@ def create_stylized_resume_pdf(file_name):
         print(f"{x_position},{y_position},add_title {text}")
         return draw_line(y_position - 5)
 
-    def write_justified_text(pdf, text, x_position, y_position, usable_width):
+    def write_justified_text(pdf, text, x_position, y_position, usable_width, bullet_points=False):
         # Create a Paragraph with justified alignment
         styles = getSampleStyleSheet()
         style = styles['Bullet']
@@ -109,7 +109,9 @@ def create_stylized_resume_pdf(file_name):
 
         # Create a "fake" frame to wrap and justify text
         _, height = paragraph.wrap(usable_width, 0)  # Calculate the height needed for the text
-        paragraph.drawOn(pdf, x_position + 20, int(y_position) - height)
+        if bullet_points:
+            pdf.drawString(x_position + 5, int(y_position) - 11, "•")
+        paragraph.drawOn(pdf, x_position + 15, int(y_position) - height)
         print(f"before y_position {y_position}")
         y_position = y_position - height
         print(f"{x_position},{y_position} ,draw_aligned_text {text}")
@@ -160,46 +162,18 @@ def create_stylized_resume_pdf(file_name):
         else:
             pdf.setFont("Helvetica", 11)
         for line in text.split("\n"):
-            # paragraph = Paragraph(line,style=PARAGRAPH_STYLE)
-            # width,height = paragraph.wrap(usable_width, usable_height)
-            # print(width,height)
-
             pdf.drawString(30 + indent, y_position, line)
             y_position = y_position - 8
             print(f"{x_position},{y_position} ,draw_text {text}")
         return y_position
 
-    y_position = write_justified_centered_text(pdf, f"<b>{RESUME_NAME}</b>",x_position, y_position, usable_width, styling="Heading1")
+    y_position = write_justified_centered_text(pdf, f"<u><b>{RESUME_NAME}</b></u>",x_position, y_position, usable_width, styling="Heading1")
     personal_detail = f"<b>{ADDRESS} | {PHONE} | <u>{EMAILID}</u> | <u>{LINKEDIN}</u></b>"
 
-    write_justified_centered_text(pdf, personal_detail, x_position, y_position, usable_width, styling="Normal")
+    y_position = write_justified_centered_text(pdf, personal_detail, x_position, y_position, usable_width, styling="Normal")
     y_position = y_position - 12
-    # pdf.drawCentredString(
-    #     page_width/2,
-    #     y_position,
-    #     f"{RESUME_NAME}",
-    #     mode=0)
-
-    # y_position = draw_text(
-    #     f"{ADDRESS}  |  {PHONE}  |  {EMAILID}  |  {LINKEDIN}",
-    #     y_position - 20, indent=10
-    # )
-    # personal_detail = f"<b>{ADDRESS} | {PHONE} | <u>{EMAILID}</u> | <u>{LINKEDIN}</u></b>"
-    # y_position = write_justified_text(pdf, f"{personal_detail}", x_position, y_position, usable_width)
-    # # print(y_position, "return loop")
-    # y_position = y_position - 14
-    # y_position = draw_line(y_position - 10)
     pdf.setFont("Helvetica", 12)
     pdf.setFillColor(colors.black)
-    # y_position = draw_text(
-    #     "A self-directed and motivated engineer experienced working effectively in dynamic environments. \n"
-    #     "Fluent in Python programming language and DevOps tools like Jenkins and AWS.",
-    #     y_position
-    # )
-
-    # Contact Information
-    # y_position = add_title("Contact Information:", y_position)
-
 
     # Professional Experience
     y_position = add_title("Experience:", y_position)
@@ -211,18 +185,18 @@ def create_stylized_resume_pdf(file_name):
             "company": "CONTINENTAL AG",
             "duration": "July 2022 - Present",
             "details": [
-                f"\u2022 Implemented an {bold_characters.get('ETL')} process to transform {bold_characters.get('Kafka')} streams into MongoDB, enabling continuous data processing with reduced latency.",
-                f"\u2022 Developed a multi-branch pipeline using <b>Jenkinsfile</b>, streamlining the deployment process "
+                f"Implemented an {bold_characters.get('ETL')} process to transform {bold_characters.get('Kafka')} streams into MongoDB, enabling continuous data processing with reduced latency.",
+                f"Developed a multi-branch pipeline using <b>Jenkinsfile</b>, streamlining the deployment process "
                 f"and ensuring efficient code integration across different projects.",
-                f"\u2022 Successfully deployed our local server on <b>AWS</b> using a Linux-based EC2 server and ODBC connector installation, optimizing infrastructure and enabling seamless scalability.",
-                f"\u2022 Utilized Plant <b>UML</b>, database schemas, sequence diagrams, dynamic logger, and Confluence to ensure continuity in operations and effective collaboration with team members.",
-                f"\u2022 Implemented static tool analyzers, including <b>SonarQube</b>, to improve code quality and maintain high standards of software development.",
-                f"\u2022 Generated <b>graphical</b> representations of builds into plots on AWS server for visualization and analysis of code quality, facilitating data-driven decision making and continuous improvement.",
-                f"\u2022 Developed web scraping techniques to extract data from Jira servers for ADAS projects, solved B+ tree of parent-child model using <b>memoization</b>.",
-                f"\u2022 Built data extraction from <b>GraphQL</b> web service API response using <b>multiprocessing</b> for synchronization with the database, enhancing data integrity and system efficiency.",
-                f"\u2022 Created a Microsoft flow using <b>Power Automate</b> diagram to obtain continuous integration of gateway failure into a Power BI report, enabling real-time monitoring.",
-                f"\u2022 Collaborated with cross-functional teams to ensure seamless integration of ETL processes and <b>web scraping</b> techniques from different servers.",
-                f"\u2022 Developed a <b>OSS</b> report generator project to scan all the python packages used inside the project and create a report for scanning for license clearance. Ex- MIT, Apache, BSD and GPL.\n"
+                f"Successfully deployed our local server on <b>AWS</b> using a Linux-based EC2 server and ODBC connector installation, optimizing infrastructure and enabling seamless scalability.",
+                f"Utilized Plant <b>UML</b>, database schemas, sequence diagrams, dynamic logger, and Confluence to ensure continuity in operations and effective collaboration with team members.",
+                f"Implemented static tool analyzers, including <b>SonarQube</b>, to improve code quality and maintain high standards of software development.",
+                f"Generated <b>graphical</b> representations of builds into plots on AWS server for visualization and analysis of code quality, facilitating data-driven decision making and continuous improvement.",
+                f"Developed web scraping techniques to extract data from Jira servers for ADAS projects, solved B+ tree of parent-child model using <b>memoization</b>.",
+                f"Built data extraction from <b>GraphQL</b> web service API response using <b>multiprocessing</b> for synchronization with the database, enhancing data integrity and system efficiency.",
+                f"Created a Microsoft flow using <b>Power Automate</b> diagram to obtain continuous integration of gateway failure into a Power BI report, enabling real-time monitoring.",
+                f"Collaborated with cross-functional teams to ensure seamless integration of ETL processes and <b>web scraping</b> techniques from different servers.",
+                f"Developed a <b>OSS</b> report generator project to scan all the python packages used inside the project and create a report for scanning for license clearance. Ex- MIT, Apache, BSD and GPL.\n"
             ]
         },
         {
@@ -230,16 +204,16 @@ def create_stylized_resume_pdf(file_name):
             "company": "Bosch Global Software Technologies",
             "duration": "Aug 2018 - July 2022",
             "details": [
-                "\u2022 <b>Spearheaded</b> a development team in the creation of a software application for configuring "
+                "<b>Spearheaded</b> a development team in the creation of a software application for configuring "
                 "communication in heavy automotive, leveraging the power and versatility of Python and the <b>PyQt5.</b>",
-                "\u2022 Developed Python tools, both command-line interface based and desktop applications, for mobile hydraulics, enhancing efficiency and productivity.",
-                "\u2022 Created a project <b>Elf2A2L</b> to parse non-human readable files Executable and Linkable Format (.elf) for data analytics and conversion into a readable format ASAM MCD-2 MC Language.(.a2l), improving data accessibility and usability.",
-                "\u2022 Served as <b>Scrum Master</b> and Engineering Product Quality (<b>EPQ</b>) auditor for a Web framework development project, ensuring adherence of CMMI level-5 standard.",
-                "\u2022 Enhanced the user experience by simplifying the process of automatic code generation, for heavy mobile hydraulic vehicle for different <b>OEMs</b>.",
-                "\u2022 Created a robust back-end data handling structure using established software design patterns, enhancing the reliability and scalability of the software development.",
-                "\u2022 Optimized software performance by reducing execution time by up to <b>50%</b>, improving overall system efficiency and responsiveness.",
-                "\u2022 Implemented Jenkins pipeline stages, including repository checkout, static code analyzer, test run on source code, <b>FOSS ID</b> run (OSS report generation), executable creation, test run on executable and delivery.",
-                "\u2022 Designed a user-friendly <b>HMI panel</b> for control-x hardware used for Drives and controls using UI/UX Touchgfx software from stm32.",
+                "Developed Python tools, both command-line interface based and desktop applications, for mobile hydraulics, enhancing efficiency and productivity.",
+                "Created a project <b>Elf2A2L</b> to parse non-human readable files Executable and Linkable Format (.elf) for data analytics and conversion into a readable format ASAM MCD-2 MC Language.(.a2l), improving data accessibility and usability.",
+                "Served as <b>Scrum Master</b> and Engineering Product Quality (<b>EPQ</b>) auditor for a Web framework development project, ensuring adherence of CMMI level-5 standard.",
+                "Enhanced the user experience by simplifying the process of automatic code generation, for heavy mobile hydraulic vehicle for different <b>OEMs</b>.",
+                "Created a robust back-end data handling structure using established software design patterns, enhancing the reliability and scalability of the software development.",
+                "Optimized software performance by reducing execution time by up to <b>50%</b>, improving overall system efficiency and responsiveness.",
+                "Implemented Jenkins pipeline stages, including repository checkout, static code analyzer, test run on source code, <b>FOSS ID</b> run (OSS report generation), executable creation, test run on executable and delivery.",
+                "Designed a user-friendly <b>HMI panel</b> for control-x hardware used for Drives and controls using UI/UX Touchgfx software from stm32.",
             ]
         }
     ]
@@ -252,19 +226,12 @@ def create_stylized_resume_pdf(file_name):
         y_position = draw_text(f"{exp['role']} | {exp['company']}", y_position, bold=True)
         for detail in exp['details']:
             # print(y_position, "loop")
-            y_position = write_justified_text(pdf,f"{detail}",x_position, y_position, usable_width)
+            y_position = write_justified_text(pdf,f"{detail}",x_position, y_position, usable_width, True)
             # print(y_position, "return loop")
         y_position = y_position - 14
 
     # Skills
     y_position = add_title("Skills:", y_position)
-    # y_position = draw_text(
-    #     "Python: PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2\n"
-    #     "DevOps: AWS, Jenkins, Groovy, Batch Script, FOSS ID\n"
-    #     "Design Patterns: UML Diagrams, DB Schemas, Sequence Diagram, ETL\n"
-    #     "Others: MongoDB, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate",
-    #     y_position
-    # )
     skill_detail = ["<b>Python:</b>PySpark, fastapi, PyQt5, Web Scraping, pandas, numpy, psycopg2.\n",
                     "<b>DevOps :</b> AWS, Jenkins, Groovy, Batch Script, FOSS ID.\n",
                     "<b>Design Patterns :</b> UML Diagrams, DB Schemas, Sequence Diagram, ETL.\n",

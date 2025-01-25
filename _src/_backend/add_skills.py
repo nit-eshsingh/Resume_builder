@@ -4,7 +4,7 @@ from PyQt6.QtWidgets import QMainWindow, QApplication
 class AddSkillsWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('add_skills.ui', self)
+        uic.loadUi('../_frontend/add_skills.ui', self)
         self.saveButton.clicked.connect(self.save_skills)
 
     def save_skills(self):
