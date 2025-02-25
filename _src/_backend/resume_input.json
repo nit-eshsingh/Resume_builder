@@ -1,0 +1,146 @@
+{
+    "CANDIDATE_NAME": "John Doe",
+    "EMAIL_ID": "v3oEj@example.com",
+    "PHONE_NUMBER": "+1234567890",
+    "LINKEDIN_URL": "https://www.linkedin.com/in/johndoe/",
+    "ADDRESS": "123 Main St, Anytown, USA",
+    "OBJECTIVE": "To foster a safe and healthy work environment by implementing effective HSE policies and practices, while driving sustainability initiatives that reduce environmental impact, optimize resource utilization, and ensure compliance with organizational and regulatory standards for long-term sustainable development.",
+    "EXPERIENCE": [
+        {
+            "ROLE": "Software Engineer",
+            "COMPANY": "ABC Company",
+            "LOCATION": "City, Country",
+            "START_DATE": "2020-01-01",
+            "END_DATE": "2022-12-31",
+            "DETAILS": [
+                "Developed a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        },
+        {
+            "ROLE": "Software Engineer",
+            "COMPANY": "XYZ Company",
+            "LOCATION": "City, Country",
+            "START_DATE": "2018-01-01",
+            "END_DATE": "2020-12-31",
+            "DETAILS": [
+                "Implemented a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        }
+    ],
+    "EDUCATION": [
+        {            
+            "INSTITUTE": "ABC University",
+            "LOCATION": "City, Country",
+            "DEGREE": "Bachelor of Science in Computer Science",
+            "START_DATE": "2014-01-01",
+            "END_DATE": "2018-12-31",
+            "GRADES": "3.8",
+            "DETAILS": [
+                "Developed a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        },
+        {
+            "INSTITUTE": "XYZ University",
+            "LOCATION": "City, Country",
+            "DEGREE": "Bachelor of Science in Computer Science",
+            "START_DATE": "2012-01-01",
+            "END_DATE": "2014-12-31",
+            "GRADES": "3.8",
+            "DETAILS": [
+                "Developed a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        }
+    ],
+    "SKILLS": [
+        {
+        "Title" : "Python",
+        "SubTitle": "PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2"
+        },
+        {
+        "Title" : "DevOps",
+        "SubTitle": "AWS, Jenkins, Groovy, Batch Script, FOSS ID"
+        }
+    ],
+    "HOBIES_AND_INTERESTS": [
+        "Reading books",
+        "Playing video games",
+        "Traveling",
+        "Exploring new technologies"
+    ],
+    "ACHIEVEMENTS": [
+        "Received a scholarship for outstanding academic performance",
+        "Participated in a research project that led to a publication in a prestigious journal"
+    ],
+    "LANGUAGES": [
+        {
+            "LANGUAGE": "English",
+            "PROFICIENCY": "Fluent"
+        },
+        {
+            "LANGUAGE": "Spanish",
+            "PROFICIENCY": "Basic"
+        }
+    ],
+    "REFERENCES": [
+        {
+            "NAME": "Jane Doe",
+            "COMPANY": "ABC Company",
+            "EMAIL": "v3oEj@example.com",
+            "PHONE": "+1234567890"
+        },
+        {
+            "NAME": "John Smith",
+            "COMPANY": "XYZ Company",
+            "EMAIL": "Vqg0D@example.com",
+            "PHONE": "+9876543210"
+        }
+    ],
+    "PUBLICATIONS": [
+        {
+            "TITLE": "Article Title",
+            "AUTHORS": "John Doe, Jane Doe",
+            "JOURNAL": "Journal Name",
+            "PUBLISH_DATE": "2021-01-01",
+            "DETAIL": [
+                "Developed a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        },
+        {
+            "TITLE": "Book Title",
+            "AUTHORS": "John Doe, Jane Doe",
+            "PUBLISHER": "Publisher Name",
+            "PUBLISH_DATE": "2020-01-01",
+            "DETAIL": [
+                "Developed a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        }
+    ],
+    "CERTIFICATIONS": [
+        {
+            "TITLE": "Certification Title",
+            "ISSUER": "Issuer Name",
+            "ISSUE_DATE": "2021-01-01",
+            "EXPIRATION_DATE": "2022-12-31",
+            "DETAIL": [
+                "Developed a new feature for the software that improved user experience and functionality.",                
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        },
+        {
+            "TITLE": "Certification Title",
+            "ISSUER": "Issuer Name",
+            "ISSUE_DATE": "2020-01-01",
+            "EXPIRATION_DATE": "2021-12-31",
+            "DETAIL": [
+                "Developed a new feature for the software that improved user experience and functionality.",
+                "Participated in code reviews and provided constructive feedback to fellow developers."
+            ]
+        }
+    ]
+}
