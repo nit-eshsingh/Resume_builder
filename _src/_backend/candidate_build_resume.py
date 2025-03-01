@@ -21,7 +21,7 @@ class ResumePDF:
         """
         self.file_name = file_name
         self.pdf = canvas.Canvas(self.file_name, pagesize=C4)
-        self.page_width, self.page_height = C4
+        self.page_width, self.page_height = C4 # page_width 649 page_height 918
         self.left_margin = 30
         self.right_margin = 50
         self.top_margin = 30
@@ -30,6 +30,7 @@ class ResumePDF:
         self.usable_height = self.page_height - self.top_margin - self.bottom_margin
         self.x_position = self.left_margin
         self.y_position = self.page_height - self.top_margin
+
 
     def _check_for_new_page_addition(self):
         """
@@ -72,7 +73,7 @@ class ResumePDF:
         paragraph = Paragraph(text, style)
         _, height = paragraph.wrap(self.usable_width, 0)
         if bullet_points:
-            self.pdf.drawString(self.x_position + 5, self.y_position - 11, "•")
+            self.pdf.drawString(self.x_position + 5, int(self.y_position) - 11, "•")
         paragraph.drawOn(self.pdf, self.x_position + 15, self.y_position - height)
         print(f"before y_position {self.y_position}")
         self.y_position -= height + 5
@@ -106,7 +107,19 @@ class ResumePDF:
         _, height = paragraph.wrap(self.usable_width, 0)
         paragraph.drawOn(self.pdf, self.x_position, self.y_position)
         print(f"before y_position {self.y_position}")
-        print(f"{self.x_position},{self.y_position} ,write_justified_right_text {text}")
+        print(f"{self.x_position},{self.y_position} ,self._write_right_aligned_text {text}")
+
+    # Function to add regular text
+    def draw_text(self, text, indent=0, bold=False):
+        if bold:
+            self.pdf.setFont("Helvetica-Bold", 12)
+        else:
+            self.pdf.setFont("Helvetica", 11)
+        for line in text.split("\n"):
+            self.pdf.drawString(30 + indent, self.y_position, line)
+            self.y_position = self.y_position - 8
+            print(f"{self.x_position},{self.y_position} ,draw_text {text}")
+        return self.y_position
 
     def generate_pdf(self):
         """
@@ -126,12 +139,11 @@ class ResumePDF:
         # self._write_text("Singing, Listening to music, Travelling, Photography, Cooking/Baking.", True)
         # self.pdf.save()
         # print(f"PDF file '{self.file_name}' created successfully!")
-        y_position = self._write_centered_text(f"<u><b>{self.RESUME_NAME}</b></u>", x_position, y_position,
-                                                   usable_width, styling="Heading1")
-        personal_detail = f"<b><u>{EMAILID}</u> | {PHONE} | <u>{LINKEDIN}</u></b>"
+        self._write_centered_text(f"<u><b>{self.RESUME_NAME}</b></u>",)
+        personal_detail = f"<b><u>{self.EMAILID}</u> | {self.PHONE} | <u>{self.LINKEDIN}</u></b>"
 
-        write_justified_centered_text(pdf, personal_detail, x_position, y_position, usable_width, styling="Normal")
-        y_position = y_position - 12
+        self._write_centered_text(personal_detail)
+        self.y_position = self.y_position - 12
         # pdf.drawCentredString(
         #     page_width/2,
         #     y_position,
@@ -147,8 +159,8 @@ class ResumePDF:
         # # print(y_position, "return loop")
         # y_position = y_position - 14
         # y_position = draw_line(y_position - 10)
-        pdf.setFont("Helvetica", 12)
-        pdf.setFillColor(colors.black)
+        self.pdf.setFont("Helvetica", 12)
+        self.pdf.setFillColor(colors.black)
         # y_position = draw_text(
         #     "A self-directed and motivated engineer experienced working effectively in dynamic environments. \n"
         #     "Fluent in Python programming language and DevOps tools like Jenkins and AWS.",
@@ -156,21 +168,21 @@ class ResumePDF:
         # )
 
         # Contact Information
-        # y_position = add_title("Contact Information:", y_position)
+        # y_position = self._add_title("Contact Information:", y_position)
 
         # y_position = y_position - 10
 
         # Objectives Section
-        y_position = add_title("Objective:", y_position, True)
+        self._add_title("Objective:", True)
         objective_details = "To foster a safe and healthy work environment by implementing effective HSE policies and practices, while driving sustainability initiatives that reduce environmental impact, optimize resource utilization, and ensure compliance with organizational and regulatory standards for long-term sustainable development."
         # hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
-        write_justified_text(pdf, f"{objective_details}", x_position, y_position, usable_width)
+        self._write_text(f"{objective_details}")
 
-        y_position = y_position - 45
+        self.y_position = self.y_position - 45
 
         # Professional Experience
-        y_position = add_title("Professional Experience:", y_position)
-        print(y_position, "Experience")
+        self._add_title("Professional Experience:", self.y_position)
+        print(self.y_position, "Experience")
         bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
         experiences = [
             {
@@ -245,28 +257,28 @@ class ResumePDF:
         ]
 
         for exp in experiences:
-            y_position = y_position - 8
-            print(y_position, "experiences in loop")
-            # write_justified_right_text()
-            write_justified_right_text(pdf, f"<b>{exp['duration']}</b>", x_position, y_position, usable_width + 10)
-            y_position = draw_text(f"{exp['role']} | {exp['company']}", y_position, bold=True)
+            self.y_position = self.y_position - 8
+            print(self.y_position, "experiences in loop")
+            # self._write_right_aligned_text()
+            self._write_right_aligned_text(f"<b>{exp['duration']}</b>")
+            self.draw_text(f"{exp['role']} | {exp['company']}", self.y_position, bold=True)
             for detail in exp['details']:
-                # print(y_position, "loop")
-                y_position = write_justified_text(pdf, f"{detail}", x_position, y_position, usable_width, True)
-                # print(y_position, "return loop")
-            y_position = y_position - 10
+                # print(self.y_position, "loop")
+                self._write_text(f"{detail}", True)
+                # print(self.y_position, "return loop")
+            self.y_position = self.y_position - 10
 
-        # y_position = _check_for_new_page_addition(y_position)
-        # y_position = _check_for_new_page_addition(y_position)
+        # self.y_position = _check_for_new_page_addition(self.y_position)
+        # self.y_position = _check_for_new_page_addition(self.y_position)
 
         # Skills
-        # y_position = add_title("Skills:", y_position)
-        # # y_position = draw_text(
+        # self.y_position = self._add_title("Skills:", self.y_position)
+        # # self.y_position = draw_text(
         # #     "Python: PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2\n"
         # #     "DevOps: AWS, Jenkins, Groovy, Batch Script, FOSS ID\n"
         # #     "Design Patterns: UML Diagrams, DB Schemas, Sequence Diagram, ETL\n"
         # #     "Others: MongoDB, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate",
-        # #     y_position
+        # #     self.y_position
         # # )
         # skill_detail = ["<b>Python:</b>PySpark, fastapi, PyQt5, Web Scraping, pandas, numpy, psycopg2.\n",
         #                 "<b>DevOps :</b> AWS, Jenkins, Groovy, Batch Script, FOSS ID.\n",
@@ -274,13 +286,13 @@ class ResumePDF:
         #                 "<b>Others :</b> MongoDB, PostgreSQL, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate."]
         #
         # for detail_item in skill_detail:
-        #     y_position = write_justified_text(pdf, f"{detail_item}", x_position, y_position, usable_width)
-        # y_position = y_position - 10
+        #     self.y_position = _write_text(pdf, f"{detail_item}", x_position, self.y_position, usable_width)
+        # self.y_position = self.y_position - 10
 
         # this the
 
         # Education
-        y_position = add_title("Education:", y_position)
+        self._add_title("Education:", self.y_position)
         education_detail = [
             {
                 "college": "<b>Regional Labour Institute, Faridabad</b>",
@@ -303,19 +315,18 @@ class ResumePDF:
         #                     "<b>Laxmi Public School</b>",
         #                     "<i>Senior Secondary </i> | <b>93.6%</b>"]
         for detail_item in education_detail:
-            y_position = write_justified_text(pdf, f"{detail_item['college']}", x_position, y_position, usable_width,
-                                              True)
-            write_justified_right_text(pdf, f"{detail_item['duration']}", x_position, y_position, usable_width + 10)
-            y_position = write_justified_text(pdf, f"{detail_item['course']}", x_position, y_position, usable_width)
-            write_justified_right_text(pdf, f"{detail_item['location']}", x_position, y_position, usable_width + 10)
-            y_position = write_justified_text(pdf, f"{detail_item['grades']}", x_position, y_position, usable_width)
+            self._write_text(f"{detail_item['college']}",True)
+            self._write_right_aligned_text(f"{detail_item['duration']}",)
+            self._write_text(f"{detail_item['course']}")
+            self._write_right_aligned_text(f"{detail_item['location']}",)
+            self._write_text(f"{detail_item['grades']}")
 
-        y_position = y_position - 10
+        self.y_position = self.y_position - 10
 
-        y_position = _check_for_new_page_addition(y_position)
+        self._check_for_new_page_addition()
 
         # Publications
-        y_position = add_title("Expertise and Certification:", y_position)
+        self._add_title("Expertise and Certification:")
         # hyperlink = '<a href="https://www.sciencedirect.com/science/article/abs/pii/S1434841118301791"><u>Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels.</u></a>'
         # hyperlink = '<a href="https://www.sciencedirect.com/science/article/abs/pii/S1434841118301791"><b>Co-Author:</b> Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels</a>'
         publication_detail = [
@@ -331,27 +342,27 @@ class ResumePDF:
             # "Certified in Advanced Training Skills."
         ]
         for detail_item in publication_detail:
-            y_position = write_justified_text(pdf, f"{detail_item}", x_position, y_position, usable_width, True)
+            self._write_text(f"{detail_item}", True)
 
-        y_position = y_position - 10
-
-        # Languages
-        y_position = add_title("Languages:", y_position)
-        # y_position = draw_text("Hindi (Native)\nEnglish (Fluent)", y_position)
-        Languages_details = ["Hindi (Native)", "English (Fluent)"]
-        # write_justified_text(pdf, f"{Languages_details}", x_position, y_position, usable_width)
-        for detail_item in Languages_details:
-            y_position = write_justified_text(pdf, f"{detail_item}", x_position, y_position, usable_width, True)
-
-        y_position = y_position - 10
-
-        # Hobbies & Interests
-        y_position = add_title("Hobbies & Interests:", y_position)
-        hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
-        write_justified_text(pdf, f"{hobbies_item}", x_position, y_position, usable_width, True)
+        # self.y_position = self.y_position - 10
+        #
+        # # Languages
+        # self.y_position = self._add_title("Languages:", self.y_position)
+        # # draw_text("Hindi (Native)\nEnglish (Fluent)", self.y_position)
+        # Languages_details = ["Hindi (Native)", "English (Fluent)"]
+        # # _write_text(pdf, f"{Languages_details}", x_position, self.y_position, usable_width)
+        # for detail_item in Languages_details:
+        #     self._write_text(f"{detail_item}", True)
+        #
+        # self.y_position = self.y_position - 10
+        #
+        # # Hobbies & Interests
+        # self._add_title("Hobbies & Interests:", self.y_position)
+        # hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
+        # self._write_text(f"{hobbies_item}",True)
 
         # Save the PDF
-        pdf.save()
+        self.pdf.save()
 
 
 if __name__ == "__main__":
