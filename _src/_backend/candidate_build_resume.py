@@ -3,25 +3,28 @@ from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+import json
+
 
 class ResumePDF:
     """
     A class to generate a stylized resume in PDF format using ReportLab.
     """
-    RESUME_NAME = "RANJANA KASHYAP"
-    EMAILID = "ranjananithamirpur@gmail.com"
-    PHONE = "+91-9736043013"
-    LINKEDIN = '<a href="https://www.linkedin.com/in/ranjana-kashyap-3bb426130/"><u>linkedin.com/in/ranjanakashyap/</u></a>'
-    ADDRESS = "Gurugram"
 
-    def __init__(self, file_name):
+    # RESUME_NAME = "RANJANA KASHYAP"
+    # EMAILID = "ranjananithamirpur@gmail.com"
+    # PHONE = "+91-9736043013"
+    # LINKEDIN = '<a href="https://www.linkedin.com/in/ranjana-kashyap-3bb426130/"><u>linkedin.com/in/ranjanakashyap/</u></a>'
+    # ADDRESS = "Gurugram"
+
+    def __init__(self, file_name, py_qt_dict):
         """
         Initializes the ResumePDF class.
         :param file_name: The output PDF file name.
         """
         self.file_name = file_name
         self.pdf = canvas.Canvas(self.file_name, pagesize=C4)
-        self.page_width, self.page_height = C4 # page_width 649 page_height 918
+        self.page_width, self.page_height = C4  # page_width 649 page_height 918
         self.left_margin = 30
         self.right_margin = 50
         self.top_margin = 30
@@ -30,7 +33,21 @@ class ResumePDF:
         self.usable_height = self.page_height - self.top_margin - self.bottom_margin
         self.x_position = self.left_margin
         self.y_position = self.page_height - self.top_margin
-
+        self.RESUME_NAME = py_qt_dict.get("CANDIDATE_NAME")
+        self.EMAILID = py_qt_dict.get("EMAIL_ID")
+        self.PHONE = py_qt_dict.get("PHONE_NUMBER")
+        self.LINKEDIN = f'<a href="{py_qt_dict.get("LINKEDIN")}"><u>{py_qt_dict.get("LINKEDIN").replace("https://www.", "")}</u></a>' if py_qt_dict.get("LINKEDIN") else None
+        self.ADDRESS = py_qt_dict.get("ADDRESS")
+        self.OBJECTIVE = py_qt_dict.get("OBJECTIVE")
+        self.EXPERIENCE = py_qt_dict.get("EXPERIENCE")
+        self.EDUCATION = py_qt_dict.get("EDUCATION")
+        self.SKILLS = py_qt_dict.get("SKILLS")
+        self.HOBBIES = py_qt_dict.get("HOBBIES")
+        self.LANGUAGES = py_qt_dict.get("LANGUAGES")
+        self.INTERESTS = py_qt_dict.get("INTERESTS")
+        self.ACHIEVEMENTS = py_qt_dict.get("ACHIEVEMENTS")
+        self.OTHERS = py_qt_dict.get("OTHERS")
+        self.CERTIFICATION = py_qt_dict.get("CERTIFICATION")
 
     def _check_for_new_page_addition(self):
         """
@@ -44,9 +61,14 @@ class ResumePDF:
         """
         Draws a horizontal line on the resume.
         """
-        self.pdf.setStrokeColor(colors.rgb2cmyk(0,0,9))
+        self.pdf.setStrokeColor(colors.rgb2cmyk(0, 0, 9))
         self.pdf.setLineWidth(1)
-        self.pdf.line(self.left_margin, self.y_position, self.usable_width + self.right_margin, self.y_position)
+        self.pdf.line(
+            self.left_margin,
+            self.y_position,
+            self.usable_width + self.right_margin,
+            self.y_position,
+        )
         print(f"{self.y_position} ,drawed_line")
         self.y_position -= 5
 
@@ -57,7 +79,7 @@ class ResumePDF:
         """
         self.y_position -= 10
         self.pdf.setFont("Helvetica-Bold", 14)
-        self.pdf.setFillColor(colors.rgb2cmyk(0,0,9))
+        self.pdf.setFillColor(colors.rgb2cmyk(0, 0, 9))
         self.pdf.drawString(self.x_position, self.y_position, text)
         print(f"{self.x_position},{self.y_position},add_title {text}")
         self._draw_line()
@@ -69,7 +91,7 @@ class ResumePDF:
         :param text: The text to write.
         :param bullet_points: Whether to include bullet points.
         """
-        style = ParagraphStyle('Bullet', alignment=4)
+        style = ParagraphStyle("Bullet", alignment=4)
         paragraph = Paragraph(text, style)
         _, height = paragraph.wrap(self.usable_width, 0)
         if bullet_points:
@@ -93,7 +115,9 @@ class ResumePDF:
         paragraph.drawOn(self.pdf, self.x_position, self.y_position)
         print(f"before y_position {self.y_position}")
         self.y_position -= height + 5
-        print(f"{self.x_position},{self.y_position} ,write_justified_centered_text {text}")
+        print(
+            f"{self.x_position},{self.y_position} ,write_justified_centered_text {text}"
+        )
 
     def _write_right_aligned_text(self, text):
         """
@@ -101,13 +125,15 @@ class ResumePDF:
         :param text: The text to write.
         """
         styles = getSampleStyleSheet()
-        style = styles['Normal']
+        style = styles["Normal"]
         style.alignment = 2  # Right aligned
         paragraph = Paragraph(text, style)
         _, height = paragraph.wrap(self.usable_width, 0)
         paragraph.drawOn(self.pdf, self.x_position, self.y_position)
         print(f"before y_position {self.y_position}")
-        print(f"{self.x_position},{self.y_position} ,self._write_right_aligned_text {text}")
+        print(
+            f"{self.x_position},{self.y_position} ,self._write_right_aligned_text {text}"
+        )
 
     # Function to add regular text
     def draw_text(self, text, indent=0, bold=False):
@@ -139,8 +165,12 @@ class ResumePDF:
         # self._write_text("Singing, Listening to music, Travelling, Photography, Cooking/Baking.", True)
         # self.pdf.save()
         # print(f"PDF file '{self.file_name}' created successfully!")
-        self._write_centered_text(f"<u><b>{self.RESUME_NAME}</b></u>",)
-        personal_detail = f"<b><u>{self.EMAILID}</u> | {self.PHONE} | <u>{self.LINKEDIN}</u></b>"
+        self._write_centered_text(
+            f"<u><b>{self.RESUME_NAME}</b></u>",
+        )
+        personal_detail = (
+            f"<b><u>{self.EMAILID}</u> | {self.PHONE} | <u>{self.LINKEDIN}</u></b>"
+        )
 
         self._write_centered_text(personal_detail)
         self.y_position = self.y_position - 12
@@ -174,16 +204,18 @@ class ResumePDF:
 
         # Objectives Section
         self._add_title("Objective:", True)
-        objective_details = "To foster a safe and healthy work environment by implementing effective HSE policies and practices, while driving sustainability initiatives that reduce environmental impact, optimize resource utilization, and ensure compliance with organizational and regulatory standards for long-term sustainable development."
+        # objective_details = "To foster a safe and healthy work environment by implementing effective HSE policies and practices, while driving sustainability initiatives that reduce environmental impact, optimize resource utilization, and ensure compliance with organizational and regulatory standards for long-term sustainable development."
         # hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
-        self._write_text(f"{objective_details}")
+        self._write_text(f"{self.OBJECTIVE}")
 
         self.y_position = self.y_position - 45
 
         # Professional Experience
         self._add_title("Professional Experience:", self.y_position)
         print(self.y_position, "Experience")
-        bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
+        # bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
+        
+        
         experiences = [
             {
                 "role": "Deputy Manager (ESG) - EHS and Sustainability",
@@ -198,8 +230,8 @@ class ResumePDF:
                     f"Drive safety culture improvement initiatives, including standardized training modules, induction videos, reward & recognition programs, and standardized safety signage.",
                     f"Co-ordinating for carry out third-party safety audits for Operations and Maintenance at project sites as per the specified frequency and ensure timely closure of observations.",
                     "Worked on budget planning for financial year to ensure the smooth achievement of organizational goals and targets, optimizing resources and aligning financial strategies with business objectives.",
-                    "Coordinating with site HSE personnel from the head office to address and resolve issues."
-                ]
+                    "Coordinating with site HSE personnel from the head office to address and resolve issues.",
+                ],
             },
             {
                 "role": "Section Head - WCM",
@@ -219,8 +251,8 @@ class ResumePDF:
                     "Utilized Minitab tool for Regression & Correlation, Design of Experiment, FMEA, and other statistical analysis, effectively analyzing data and identifying trends and insights.",
                     "Demonstrated excellent analytical skills and problem-solving abilities, utilizing root cause analysis to identify and implement effective solutions.",
                     "Measured and reported on key performance indicators (leading and lagging) at the site level, developing and implementing corrective action plans to address areas of concern.",
-                    "Identified key issues, gathered and analyzed data, and synthesized findings to support hypotheses and develop actionable recommendations."
-                ]
+                    "Identified key issues, gathered and analyzed data, and synthesized findings to support hypotheses and develop actionable recommendations.",
+                ],
             },
             {
                 "role": "Process Control Engineer",
@@ -237,7 +269,7 @@ class ResumePDF:
                     f"Responsible for developing LEAN culture compliance with health and safety regulations.",
                     f"Documentation of IATF, ISO14001 and OHSAS 18001 audits.",
                     # f"Responsible for monitoring and controlling Production KPI’s (Plan Execution, Line attainment, Process Downtime, Schedule Downtime, CT, Rejection etc.)",
-                ]
+                ],
             },
             {
                 "role": "Officer",
@@ -251,8 +283,7 @@ class ResumePDF:
                     # f"Coordinated with maintenance, environmental health and safety (EHS), excellence, and production teams to ensure smooth project implementation.",
                     f"Conducted process audits and reviews to ensure strict adherence to defined guidelines and systems.",
                     f"Utilized process mapping techniques such as input/output diagrams, value stream mapping (VSM), root cause analysis (RCA), Six Sigma, Lean Six Sigma, World Class Manufacturing (WCM), Total Productive Maintenance (TPM), Total Quality Management (TQM), Overall Equipment Effectiveness (OEE), and planning and implementing countermeasures to monitor results.",
-
-                ]
+                ],
             },
         ]
 
@@ -261,8 +292,10 @@ class ResumePDF:
             print(self.y_position, "experiences in loop")
             # self._write_right_aligned_text()
             self._write_right_aligned_text(f"<b>{exp['duration']}</b>")
-            self.draw_text(f"{exp['role']} | {exp['company']}", self.y_position, bold=True)
-            for detail in exp['details']:
+            self.draw_text(
+                f"{exp['role']} | {exp['company']}", self.y_position, bold=True
+            )
+            for detail in exp["details"]:
                 # print(self.y_position, "loop")
                 self._write_text(f"{detail}", True)
                 # print(self.y_position, "return loop")
@@ -299,15 +332,15 @@ class ResumePDF:
                 "course": "<i>PG Diploma in Industrial Safety </i>",
                 "duration": "<b>Jun 2021 - Jun 2022</b>",
                 "grades": "<i>Percentage : 79.2%, Silver Medalist</i>",
-                "location": "<i>Haryana, India</i>"
+                "location": "<i>Haryana, India</i>",
             },
             {
                 "college": "<b>National Institute of Technology, Hamirpur (NITH)</b>",
                 "course": "<i>Bachelor of Technology in Chemical Engineering</i>",
                 "duration": "<b>Aug 2014 - May 2018</b>",
                 "grades": "<i>Percentage : 87.8%</i>",
-                "location": "<i>H.P., India</i>"
-            }
+                "location": "<i>H.P., India</i>",
+            },
         ]
 
         # education_detail = ["<b>National Institute of Technology</b>",
@@ -315,10 +348,14 @@ class ResumePDF:
         #                     "<b>Laxmi Public School</b>",
         #                     "<i>Senior Secondary </i> | <b>93.6%</b>"]
         for detail_item in education_detail:
-            self._write_text(f"{detail_item['college']}",True)
-            self._write_right_aligned_text(f"{detail_item['duration']}",)
+            self._write_text(f"{detail_item['college']}", True)
+            self._write_right_aligned_text(
+                f"{detail_item['duration']}",
+            )
             self._write_text(f"{detail_item['course']}")
-            self._write_right_aligned_text(f"{detail_item['location']}",)
+            self._write_right_aligned_text(
+                f"{detail_item['location']}",
+            )
             self._write_text(f"{detail_item['grades']}")
 
         self.y_position = self.y_position - 10
@@ -344,22 +381,22 @@ class ResumePDF:
         for detail_item in publication_detail:
             self._write_text(f"{detail_item}", True)
 
-        # self.y_position = self.y_position - 10
-        #
-        # # Languages
-        # self.y_position = self._add_title("Languages:", self.y_position)
-        # # draw_text("Hindi (Native)\nEnglish (Fluent)", self.y_position)
-        # Languages_details = ["Hindi (Native)", "English (Fluent)"]
-        # # _write_text(pdf, f"{Languages_details}", x_position, self.y_position, usable_width)
-        # for detail_item in Languages_details:
-        #     self._write_text(f"{detail_item}", True)
-        #
-        # self.y_position = self.y_position - 10
-        #
-        # # Hobbies & Interests
-        # self._add_title("Hobbies & Interests:", self.y_position)
-        # hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
-        # self._write_text(f"{hobbies_item}",True)
+        self.y_position = self.y_position - 10
+
+        # Languages
+        self._add_title("Languages:", self.y_position)
+        # draw_text("Hindi (Native)\nEnglish (Fluent)", self.y_position)
+        Languages_details = ["Hindi (Native)", "English (Fluent)"]
+        # _write_text(pdf, f"{Languages_details}", x_position, self.y_position, usable_width)
+        for detail_item in Languages_details:
+            self._write_text(f"{detail_item}", True)
+
+        self.y_position = self.y_position - 10
+
+        # Hobbies & Interests
+        self._add_title("Hobbies & Interests:", self.y_position)
+        hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
+        self._write_text(f"{hobbies_item}", True)
 
         # Save the PDF
         self.pdf.save()
@@ -367,5 +404,9 @@ class ResumePDF:
 
 if __name__ == "__main__":
     file_name = "../_samples/Candidate_Resume.pdf"
-    resume = ResumePDF(file_name)
+    py_qt_dict = json.load(open("resume_input.json"))
+
+    resume = ResumePDF(file_name, py_qt_dict)
     resume.generate_pdf()
+
+    print("PY_qt:", py_qt_dict)
