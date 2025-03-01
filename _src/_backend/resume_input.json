@@ -10,22 +10,32 @@
             "ROLE": "Software Engineer",
             "COMPANY": "ABC Company",
             "LOCATION": "City, Country",
-            "START_DATE": "2020-01-01",
-            "END_DATE": "2022-12-31",
+            "DURATION": "April 2024 - Present",
             "DETAILS": [
-                "Developed a new feature for the software that improved user experience and functionality.",
-                "Participated in code reviews and provided constructive feedback to fellow developers."
+                    "Analyze site safety statistics data for Operational and under construction(Solar and Wind) project sites, prepare monthly SteerCo presentations, and highlight gaps.",
+                    "Coordinate IMS system implementation across the portfolio.",
+                    "Responsible for implementation of ISO 14001 and 45001 across portfolio.",
+                    "Conduct ESIA and ESDD studies for new projects along with vendors.",
+                    "Ensure compliance with the Environmental and Social Management System (ESMS) and IFC standards",
+                    "Drive safety culture improvement initiatives, including standardized training modules, induction videos, reward & recognition programs, and standardized safety signage.",
+                    "Co-ordinating for carry out third-party safety audits for Operations and Maintenance at project sites as per the specified frequency and ensure timely closure of observations.",
+                    "Worked on budget planning for financial year to ensure the smooth achievement of organizational goals and targets, optimizing resources and aligning financial strategies with business objectives.",
+                    "Coordinating with site HSE personnel from the head office to address and resolve issues."
             ]
         },
         {
             "ROLE": "Software Engineer",
             "COMPANY": "XYZ Company",
             "LOCATION": "City, Country",
-            "START_DATE": "2018-01-01",
-            "END_DATE": "2020-12-31",
+            "DURATION": "June 2022 - Dec 2023",
             "DETAILS": [
-                "Implemented a new feature for the software that improved user experience and functionality.",
-                "Participated in code reviews and provided constructive feedback to fellow developers."
+                    "Implemented and documented Quality Management System (ISO 9001:2015), Environment Management System (ISO 14001:2015), Occupational Health and Safety Management System (ISO 45001:2018), and Risk Management System (ISO 31000:2018) at UFLEX Limited (Chemical Business).",
+                    "Ensured compliance with legal requirements related to waste generation, pressure testing of vessels, effluent generation.",
+                    "Led improvement projects within time-bound targets, focusing on efficiency improvements, process excellence initiatives, cost savings, safety, environment, and productivity management.",
+                    "Conducted risk assessments, job safety analyses (JSA), and hazard and operability studies (HAZOP) for various processes.",
+                    "Coordinated with maintenance, environmental health and safety (EHS), excellence, and production teams to ensure smooth project implementation.",
+                    "Conducted process audits and reviews to ensure strict adherence to defined guidelines and systems.",
+                    "Utilized process mapping techniques such as input/output diagrams, value stream mapping (VSM), root cause analysis (RCA), Six Sigma, Lean Six Sigma, World Class Manufacturing (WCM), Total Productive Maintenance (TPM), Total Quality Management (TQM), Overall Equipment Effectiveness (OEE), and planning and implementing countermeasures to monitor results."
             ]
         }
     ],
@@ -34,8 +44,7 @@
             "INSTITUTE": "ABC University",
             "LOCATION": "City, Country",
             "DEGREE": "Bachelor of Science in Computer Science",
-            "START_DATE": "2014-01-01",
-            "END_DATE": "2018-12-31",
+            "DURATION": "June 2022 - Dec 2023",
             "GRADES": "3.8",
             "DETAILS": [
                 "Developed a new feature for the software that improved user experience and functionality.",
@@ -46,8 +55,7 @@
             "INSTITUTE": "XYZ University",
             "LOCATION": "City, Country",
             "DEGREE": "Bachelor of Science in Computer Science",
-            "START_DATE": "2012-01-01",
-            "END_DATE": "2014-12-31",
+            "DURATION": "June 2022 - Dec 2023",
             "GRADES": "3.8",
             "DETAILS": [
                 "Developed a new feature for the software that improved user experience and functionality.",
@@ -77,11 +85,11 @@
     ],
     "LANGUAGES": [
         {
-            "LANGUAGE": "English",
+            "LANGUAGE": "Hindi",
             "PROFICIENCY": "Fluent"
         },
         {
-            "LANGUAGE": "Spanish",
+            "LANGUAGE": "English",
             "PROFICIENCY": "Basic"
         }
     ],
