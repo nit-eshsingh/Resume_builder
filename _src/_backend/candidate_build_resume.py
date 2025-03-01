@@ -42,7 +42,7 @@ class ResumePDF:
         self.EXPERIENCE = py_qt_dict.get("EXPERIENCE")
         self.EDUCATION = py_qt_dict.get("EDUCATION")
         self.SKILLS = py_qt_dict.get("SKILLS")
-        self.HOBBIES = py_qt_dict.get("HOBBIES")
+        self.HOBIES_AND_INTERESTS = py_qt_dict.get("HOBIES_AND_INTERESTS")
         self.LANGUAGES = py_qt_dict.get("LANGUAGES")
         self.INTERESTS = py_qt_dict.get("INTERESTS")
         self.ACHIEVEMENTS = py_qt_dict.get("ACHIEVEMENTS")
@@ -100,6 +100,7 @@ class ResumePDF:
         print(f"before y_position {self.y_position}")
         self.y_position -= height + 5
         print(f"{self.x_position},{self.y_position} ,draw_aligned_text {text}")
+        self._check_for_new_page_addition()
 
     def _write_centered_text(self, text, style_name="Normal"):
         """
@@ -151,20 +152,6 @@ class ResumePDF:
         """
         Generates the resume PDF with all sections.
         """
-        # self._write_centered_text(f"<u><b>{self.RESUME_NAME}</b></u>", "Heading1")
-        # personal_details = f"<b><u>{self.EMAILID}</u> | {self.PHONE} | <u>{self.LINKEDIN}</u></b>"
-        # self._write_centered_text(personal_details, "Normal")
-        # self._add_title("Objective:")
-        # self._write_text("To foster a safe and healthy work environment...")
-        # self._add_title("Education:")
-        # self._write_text("<b>National Institute of Technology, Hamirpur</b> | B.Tech in Chemical Engineering | 87.8%", True)
-        # self._write_text("<b>Regional Labour Institute, Faridabad</b> | PG Diploma in Industrial Safety | 79.2%, Silver Medalist", True)
-        # self._add_title("Languages:")
-        # self._write_text("Hindi (Native), English (Fluent)", True)
-        # self._add_title("Hobbies & Interests:")
-        # self._write_text("Singing, Listening to music, Travelling, Photography, Cooking/Baking.", True)
-        # self.pdf.save()
-        # print(f"PDF file '{self.file_name}' created successfully!")
         self._write_centered_text(
             f"<u><b>{self.RESUME_NAME}</b></u>",
         )
@@ -174,33 +161,8 @@ class ResumePDF:
 
         self._write_centered_text(personal_detail)
         self.y_position = self.y_position - 12
-        # pdf.drawCentredString(
-        #     page_width/2,
-        #     y_position,
-        #     f"{RESUME_NAME}",
-        #     mode=0)
-
-        # y_position = draw_text(
-        #     f"{ADDRESS}  |  {PHONE}  |  {EMAILID}  |  {LINKEDIN}",
-        #     y_position - 20, indent=10
-        # )
-        # personal_detail = f"<b>{ADDRESS} | {PHONE} | <u>{EMAILID}</u> | <u>{LINKEDIN}</u></b>"
-        # y_position = write_justified_text(pdf, f"{personal_detail}", x_position, y_position, usable_width)
-        # # print(y_position, "return loop")
-        # y_position = y_position - 14
-        # y_position = draw_line(y_position - 10)
         self.pdf.setFont("Helvetica", 12)
         self.pdf.setFillColor(colors.black)
-        # y_position = draw_text(
-        #     "A self-directed and motivated engineer experienced working effectively in dynamic environments. \n"
-        #     "Fluent in Python programming language and DevOps tools like Jenkins and AWS.",
-        #     y_position
-        # )
-
-        # Contact Information
-        # y_position = self._add_title("Contact Information:", y_position)
-
-        # y_position = y_position - 10
 
         # Objectives Section
         self._add_title("Objective:", True)
@@ -214,159 +176,60 @@ class ResumePDF:
         self._add_title("Professional Experience:", self.y_position)
         print(self.y_position, "Experience")
         # bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
-        
-        
-        experiences = [
-            {
-                "role": "Deputy Manager (ESG) - EHS and Sustainability",
-                "company": "BluPine Energy Pvt. Ltd.",
-                "duration": "April 2024 - Present",
-                "details": [
-                    f"Analyze site safety statistics data for Operational and under construction(Solar and Wind) project sites, prepare monthly SteerCo presentations, and highlight gaps.",
-                    f"Coordinate IMS system implementation across the portfolio.",
-                    "Responsible for implementation of ISO 14001 and 45001 across portfolio.",
-                    "Conduct ESIA and ESDD studies for new projects along with vendors.",
-                    "Ensure compliance with the Environmental and Social Management System (ESMS) and IFC standards",
-                    f"Drive safety culture improvement initiatives, including standardized training modules, induction videos, reward & recognition programs, and standardized safety signage.",
-                    f"Co-ordinating for carry out third-party safety audits for Operations and Maintenance at project sites as per the specified frequency and ensure timely closure of observations.",
-                    "Worked on budget planning for financial year to ensure the smooth achievement of organizational goals and targets, optimizing resources and aligning financial strategies with business objectives.",
-                    "Coordinating with site HSE personnel from the head office to address and resolve issues.",
-                ],
-            },
-            {
-                "role": "Section Head - WCM",
-                "company": "Grasim Industries Limited [ Birla Cellulosic ]",
-                "duration": "June 2022 - Dec 2023",
-                "details": [
-                    # f"Analyzing Site's safety statistics data of O&M and project site and preparing monthly SteerCo presentation, highlighting the gaps to the management.",
-                    # f"Responsible for conducting third party safety audit of O&M and project site as per the defined frequency and get the observations closed.",
-                    # f"Coordinator for implementing IMS system across portfolio.",
-                    # f"Conducting ESIA and ESDD along with vendor and closing the observation.",
-                    # f"Driving various initiatives at site to improve safety culture such as Standardized training module, Induction video, Reward & recognition and standardized safety signages etc.",
-                    "Led the implementation of ISO9001, 14001, and 45001 standards, ensuring compliance and successful audits at the site.",
-                    "Developed and maintained documentation for Process Safety Management (PSM) and Sustainability (Higgs Index), demonstrating a strong commitment to safety and environmental responsibility.",
-                    "Defined, planned, and executed organizational goals and objectives, aligning them withoverall company strategy.",
-                    "Actively tracked and communicated the status of key initiatives, providing regular updates to stakeholders and ensuring transparency and accountability.",
-                    "Successfully managed multiple projects, consistently meeting delivery targets and providing status updates on performance against plan.",
-                    "Utilized Minitab tool for Regression & Correlation, Design of Experiment, FMEA, and other statistical analysis, effectively analyzing data and identifying trends and insights.",
-                    "Demonstrated excellent analytical skills and problem-solving abilities, utilizing root cause analysis to identify and implement effective solutions.",
-                    "Measured and reported on key performance indicators (leading and lagging) at the site level, developing and implementing corrective action plans to address areas of concern.",
-                    "Identified key issues, gathered and analyzed data, and synthesized findings to support hypotheses and develop actionable recommendations.",
-                ],
-            },
-            {
-                "role": "Process Control Engineer",
-                "company": "Johnson Matthey India Private Limited",
-                "duration": "September 2021 - June 2022",
-                "details": [
-                    f"Ensuring effective production planning for optimum productivity.",
-                    # f"Documentation and responsible for closure of EHS and QMS observations with in time.",
-                    # f"Ensuring effective production planning for optimum productivity.",
-                    f"Downtime analysis and action plan generation.",
-                    # f"Planning and execution of validation of new product and implementation in mass production.",
-                    # f"Carry out and support CI project implementation works by providing technical setup.",
-                    # f"Accountability and controlling of consumables.",
-                    f"Responsible for developing LEAN culture compliance with health and safety regulations.",
-                    f"Documentation of IATF, ISO14001 and OHSAS 18001 audits.",
-                    # f"Responsible for monitoring and controlling Production KPI’s (Plan Execution, Line attainment, Process Downtime, Schedule Downtime, CT, Rejection etc.)",
-                ],
-            },
-            {
-                "role": "Officer",
-                "company": "UFLEX Limited (Chemical Business)",
-                "duration": "June 2018 - August 2021",
-                "details": [
-                    f"Implemented and documented Quality Management System (ISO 9001:2015), Environment Management System (ISO 14001:2015), Occupational Health and Safety Management System (ISO 45001:2018), and Risk Management System (ISO 31000:2018) at UFLEX Limited (Chemical Business).",
-                    f"Ensured compliance with legal requirements related to waste generation, pressure testing of vessels, effluent generation.",
-                    f"Led improvement projects within time-bound targets, focusing on efficiency improvements, process excellence initiatives, cost savings, safety, environment, and productivity management.",
-                    f"Conducted risk assessments, job safety analyses (JSA), and hazard and operability studies (HAZOP) for various processes.",
-                    # f"Coordinated with maintenance, environmental health and safety (EHS), excellence, and production teams to ensure smooth project implementation.",
-                    f"Conducted process audits and reviews to ensure strict adherence to defined guidelines and systems.",
-                    f"Utilized process mapping techniques such as input/output diagrams, value stream mapping (VSM), root cause analysis (RCA), Six Sigma, Lean Six Sigma, World Class Manufacturing (WCM), Total Productive Maintenance (TPM), Total Quality Management (TQM), Overall Equipment Effectiveness (OEE), and planning and implementing countermeasures to monitor results.",
-                ],
-            },
-        ]
 
+        experiences = self.EXPERIENCE
         for exp in experiences:
             self.y_position = self.y_position - 8
             print(self.y_position, "experiences in loop")
             # self._write_right_aligned_text()
-            self._write_right_aligned_text(f"<b>{exp['duration']}</b>")
+            self._write_right_aligned_text(f"<b>{exp['DURATION']}</b>")
             self.draw_text(
-                f"{exp['role']} | {exp['company']}", self.y_position, bold=True
+                f"{exp['ROLE']} | {exp['COMPANY']}", self.y_position, bold=True
             )
-            for detail in exp["details"]:
+            for detail in exp["DETAILS"]:
                 # print(self.y_position, "loop")
                 self._write_text(f"{detail}", True)
                 # print(self.y_position, "return loop")
             self.y_position = self.y_position - 10
 
-        # self.y_position = _check_for_new_page_addition(self.y_position)
-        # self.y_position = _check_for_new_page_addition(self.y_position)
 
-        # Skills
-        # self.y_position = self._add_title("Skills:", self.y_position)
-        # # self.y_position = draw_text(
-        # #     "Python: PySpark, PyQt5, Web Scraping, pandas, numpy, psycopg2\n"
-        # #     "DevOps: AWS, Jenkins, Groovy, Batch Script, FOSS ID\n"
-        # #     "Design Patterns: UML Diagrams, DB Schemas, Sequence Diagram, ETL\n"
-        # #     "Others: MongoDB, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate",
-        # #     self.y_position
-        # # )
-        # skill_detail = ["<b>Python:</b>PySpark, fastapi, PyQt5, Web Scraping, pandas, numpy, psycopg2.\n",
-        #                 "<b>DevOps :</b> AWS, Jenkins, Groovy, Batch Script, FOSS ID.\n",
-        #                 "<b>Design Patterns :</b> UML Diagrams, DB Schemas, Sequence Diagram, ETL.\n",
-        #                 "<b>Others :</b> MongoDB, PostgreSQL, GraphQL, Kafka, Artifactory Servers, SonarQube, Power Automate."]
-        #
-        # for detail_item in skill_detail:
-        #     self.y_position = _write_text(pdf, f"{detail_item}", x_position, self.y_position, usable_width)
-        # self.y_position = self.y_position - 10
-
-        # this the
-
-        # Education
         self._add_title("Education:", self.y_position)
-        education_detail = [
-            {
-                "college": "<b>Regional Labour Institute, Faridabad</b>",
-                "course": "<i>PG Diploma in Industrial Safety </i>",
-                "duration": "<b>Jun 2021 - Jun 2022</b>",
-                "grades": "<i>Percentage : 79.2%, Silver Medalist</i>",
-                "location": "<i>Haryana, India</i>",
-            },
-            {
-                "college": "<b>National Institute of Technology, Hamirpur (NITH)</b>",
-                "course": "<i>Bachelor of Technology in Chemical Engineering</i>",
-                "duration": "<b>Aug 2014 - May 2018</b>",
-                "grades": "<i>Percentage : 87.8%</i>",
-                "location": "<i>H.P., India</i>",
-            },
-        ]
+        education_detail = self.EDUCATION
+        # education_detail = [
+        #     {
+        #         "college": "<b>Regional Labour Institute, Faridabad</b>",
+        #         "course": "<i>PG Diploma in Industrial Safety </i>",
+        #         "duration": "<b>Jun 2021 - Jun 2022</b>",
+        #         "grades": "<i>Percentage : 79.2%, Silver Medalist</i>",
+        #         "location": "<i>Haryana, India</i>",
+        #     },
+        #     {
+        #         "college": "<b>National Institute of Technology, Hamirpur (NITH)</b>",
+        #         "course": "<i>Bachelor of Technology in Chemical Engineering</i>",
+        #         "duration": "<b>Aug 2014 - May 2018</b>",
+        #         "grades": "<i>Percentage : 87.8%</i>",
+        #         "location": "<i>H.P., India</i>",
+        #     },
+        # ]
 
-        # education_detail = ["<b>National Institute of Technology</b>",
-        #                     "<i>Bachelor of Technology in Electronics and Communication Engineering</i> | 8.21 CGPA ",
-        #                     "<b>Laxmi Public School</b>",
-        #                     "<i>Senior Secondary </i> | <b>93.6%</b>"]
         for detail_item in education_detail:
-            self._write_text(f"{detail_item['college']}", True)
+            self._write_text(f"{detail_item['INSTITUTE']}", True)
             self._write_right_aligned_text(
-                f"{detail_item['duration']}",
+                f"{detail_item['DURATION']}",
             )
-            self._write_text(f"{detail_item['course']}")
+            self._write_text(f"{detail_item['DEGREE']}")
             self._write_right_aligned_text(
-                f"{detail_item['location']}",
+                f"{detail_item['LOCATION']}",
             )
-            self._write_text(f"{detail_item['grades']}")
+            self._write_text(f"{detail_item['GRADES']}")
 
         self.y_position = self.y_position - 10
-
-        self._check_for_new_page_addition()
 
         # Publications
         self._add_title("Expertise and Certification:")
         # hyperlink = '<a href="https://www.sciencedirect.com/science/article/abs/pii/S1434841118301791"><u>Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels.</u></a>'
         # hyperlink = '<a href="https://www.sciencedirect.com/science/article/abs/pii/S1434841118301791"><b>Co-Author:</b> Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels</a>'
-        publication_detail = [
+        Certification = [
             "Working at Heights Training from Global Wind Organisation",
             "First Aid, CPR and Medical Emergency Preparedness from St John Ambulance",
             "Certified Process Safety Management (PSM) professional from M/S Chola MS",
@@ -378,7 +241,7 @@ class ResumePDF:
             "Six Sigma Green Belt Trained internally from Uflex Limited.",
             # "Certified in Advanced Training Skills."
         ]
-        for detail_item in publication_detail:
+        for detail_item in Certification:
             self._write_text(f"{detail_item}", True)
 
         self.y_position = self.y_position - 10
@@ -386,16 +249,18 @@ class ResumePDF:
         # Languages
         self._add_title("Languages:", self.y_position)
         # draw_text("Hindi (Native)\nEnglish (Fluent)", self.y_position)
-        Languages_details = ["Hindi (Native)", "English (Fluent)"]
+        Languages_details = self.LANGUAGES
+        # Languages_details = ["Hindi (Native)", "English (Fluent)"]
         # _write_text(pdf, f"{Languages_details}", x_position, self.y_position, usable_width)
         for detail_item in Languages_details:
-            self._write_text(f"{detail_item}", True)
+            self._write_text(f"{detail_item.get('LANGUAGE')} ({detail_item.get('PROFICIENCY')})", True)
 
         self.y_position = self.y_position - 10
 
         # Hobbies & Interests
         self._add_title("Hobbies & Interests:", self.y_position)
-        hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
+        hobbies_item = ",".join(self.HOBIES_AND_INTERESTS)
+        # hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
         self._write_text(f"{hobbies_item}", True)
 
         # Save the PDF
@@ -403,7 +268,7 @@ class ResumePDF:
 
 
 if __name__ == "__main__":
-    file_name = "../_samples/Candidate_Resume.pdf"
+    file_name = "Candidate_Resume.pdf"
     py_qt_dict = json.load(open("resume_input.json"))
 
     resume = ResumePDF(file_name, py_qt_dict)
