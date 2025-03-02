@@ -4,9 +4,10 @@ from reportlab.lib import colors
 from reportlab.platypus import Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 import json
+from candidate_singleton_class import CandidateSingletonMetaClass
 
 
-class ResumePDF:
+class ResumePDF(metaclass=CandidateSingletonMetaClass):
     """
     A class to generate a stylized resume in PDF format using ReportLab.
     """
@@ -17,13 +18,13 @@ class ResumePDF:
     # LINKEDIN = '<a href="https://www.linkedin.com/in/ranjana-kashyap-3bb426130/"><u>linkedin.com/in/ranjanakashyap/</u></a>'
     # ADDRESS = "Gurugram"
 
-    def __init__(self, file_name, py_qt_dict):
+    def __init__(self, py_qt_dict):
         """
         Initializes the ResumePDF class.
         :param file_name: The output PDF file name.
         """
-        self.file_name = file_name
-        self.pdf = canvas.Canvas(self.file_name, pagesize=C4)
+        self.RESUME_NAME = py_qt_dict.get("CANDIDATE_NAME")
+        self.pdf = canvas.Canvas(self.RESUME_NAME, pagesize=C4)
         self.page_width, self.page_height = C4  # page_width 649 page_height 918
         self.left_margin = 30
         self.right_margin = 50
@@ -33,7 +34,6 @@ class ResumePDF:
         self.usable_height = self.page_height - self.top_margin - self.bottom_margin
         self.x_position = self.left_margin
         self.y_position = self.page_height - self.top_margin
-        self.RESUME_NAME = py_qt_dict.get("CANDIDATE_NAME")
         self.EMAILID = py_qt_dict.get("EMAIL_ID")
         self.PHONE = py_qt_dict.get("PHONE_NUMBER")
         self.LINKEDIN = f'<a href="{py_qt_dict.get("LINKEDIN")}"><u>{py_qt_dict.get("LINKEDIN").replace("https://www.", "")}</u></a>' if py_qt_dict.get("LINKEDIN") else None
@@ -268,10 +268,8 @@ class ResumePDF:
 
 
 if __name__ == "__main__":
-    file_name = "Candidate_Resume.pdf"
     py_qt_dict = json.load(open("resume_input.json"))
-
-    resume = ResumePDF(file_name, py_qt_dict)
+    resume = ResumePDF(py_qt_dict)
     resume.generate_pdf()
 
     print("PY_qt:", py_qt_dict)
