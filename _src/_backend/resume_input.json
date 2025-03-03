@@ -109,23 +109,12 @@
     ],
     "PUBLICATIONS": [
         {
-            "TITLE": "Article Title",
-            "AUTHORS": "John Doe, Jane Doe",
-            "JOURNAL": "Journal Name",
-            "PUBLISH_DATE": "2021-01-01",
+            "TITLE": "Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels.",
+            "AUTHOR": "Nitesh Kumar Singh",
+            "JOURNAL": "International Journal of Electronics and Communications",
+            "PUBLISH_DATE": "Sept. 1, 2018",
             "DETAIL": [
-                "Developed a new feature for the software that improved user experience and functionality.",
-                "Participated in code reviews and provided constructive feedback to fellow developers."
-            ]
-        },
-        {
-            "TITLE": "Book Title",
-            "AUTHORS": "John Doe, Jane Doe",
-            "PUBLISHER": "Publisher Name",
-            "PUBLISH_DATE": "2020-01-01",
-            "DETAIL": [
-                "Developed a new feature for the software that improved user experience and functionality.",
-                "Participated in code reviews and provided constructive feedback to fellow developers."
+                "Collaborated with Dr. Sandeep Kumar (Principal Scientist), Dr. Kuldeep Singh and the research team to design and implement innovative solutions enhancing radar navigation systems through advanced spectrum sensing techniques."
             ]
         }
     ],

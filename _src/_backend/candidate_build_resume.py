@@ -5,18 +5,12 @@ from reportlab.platypus import Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 import json
 from candidate_singleton_class import CandidateSingletonMetaClass
-
+from datetime import datetime
 
 class ResumePDF(metaclass=CandidateSingletonMetaClass):
     """
     A class to generate a stylized resume in PDF format using ReportLab.
     """
-
-    # RESUME_NAME = "RANJANA KASHYAP"
-    # EMAILID = "ranjananithamirpur@gmail.com"
-    # PHONE = "+91-9736043013"
-    # LINKEDIN = '<a href="https://www.linkedin.com/in/ranjana-kashyap-3bb426130/"><u>linkedin.com/in/ranjanakashyap/</u></a>'
-    # ADDRESS = "Gurugram"
 
     def __init__(self, py_qt_dict):
         """
@@ -24,7 +18,8 @@ class ResumePDF(metaclass=CandidateSingletonMetaClass):
         :param file_name: The output PDF file name.
         """
         self.RESUME_NAME = py_qt_dict.get("CANDIDATE_NAME")
-        self.pdf = canvas.Canvas(self.RESUME_NAME, pagesize=C4)
+        file_name = f"{self.RESUME_NAME}-{datetime.now().strftime('%d-%m-%Y')}.pdf"
+        self.pdf = canvas.Canvas(file_name, pagesize=C4)
         self.page_width, self.page_height = C4  # page_width 649 page_height 918
         self.left_margin = 30
         self.right_margin = 50
@@ -82,6 +77,7 @@ class ResumePDF(metaclass=CandidateSingletonMetaClass):
         self.pdf.setFillColor(colors.rgb2cmyk(0, 0, 9))
         self.pdf.drawString(self.x_position, self.y_position, text)
         print(f"{self.x_position},{self.y_position},add_title {text}")
+        self.y_position -= 5
         self._draw_line()
         self.y_position -= 5
 
@@ -160,7 +156,7 @@ class ResumePDF(metaclass=CandidateSingletonMetaClass):
         )
 
         self._write_centered_text(personal_detail)
-        self.y_position = self.y_position - 12
+        # self.y_position = self.y_position - 12
         self.pdf.setFont("Helvetica", 12)
         self.pdf.setFillColor(colors.black)
 
@@ -170,22 +166,21 @@ class ResumePDF(metaclass=CandidateSingletonMetaClass):
         # hobbies_item = "Singing, Listening to music, Travelling, Photography[Capturing Moments], Cooking/Baking."
         self._write_text(f"{self.OBJECTIVE}")
 
-        self.y_position = self.y_position - 45
-
         # Professional Experience
-        self._add_title("Professional Experience:", self.y_position)
+        self._add_title("Professional Experience:")
         print(self.y_position, "Experience")
         # bold_characters = {"ETL": "<b>ETL</b>", "Kafka": "<b>Kafka</b>"}
 
         experiences = self.EXPERIENCE
         for exp in experiences:
-            self.y_position = self.y_position - 8
+            # self.y_position = self.y_position - 8
             print(self.y_position, "experiences in loop")
             # self._write_right_aligned_text()
-            self._write_right_aligned_text(f"<b>{exp['DURATION']}</b>")
+
             self.draw_text(
-                f"{exp['ROLE']} | {exp['COMPANY']}", self.y_position, bold=True
+                f"{exp['ROLE']} | {exp['COMPANY']}", bold=True
             )
+            self._write_right_aligned_text(f"<b>{exp['DURATION']}</b>")
             for detail in exp["DETAILS"]:
                 # print(self.y_position, "loop")
                 self._write_text(f"{detail}", True)
@@ -229,6 +224,7 @@ class ResumePDF(metaclass=CandidateSingletonMetaClass):
         self._add_title("Expertise and Certification:")
         # hyperlink = '<a href="https://www.sciencedirect.com/science/article/abs/pii/S1434841118301791"><u>Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels.</u></a>'
         # hyperlink = '<a href="https://www.sciencedirect.com/science/article/abs/pii/S1434841118301791"><b>Co-Author:</b> Energy detection based spectrum sensing for gamma shadowed α–η–μ and α–κ–μ fading channels</a>'
+        Certification = self.CERTIFICATION
         Certification = [
             "Working at Heights Training from Global Wind Organisation",
             "First Aid, CPR and Medical Emergency Preparedness from St John Ambulance",
@@ -268,8 +264,8 @@ class ResumePDF(metaclass=CandidateSingletonMetaClass):
 
 
 if __name__ == "__main__":
-    py_qt_dict = json.load(open("resume_input.json"))
-    resume = ResumePDF(py_qt_dict)
+    pyqt_input_dict = json.load(open("resume_input.json"))
+    resume = ResumePDF(pyqt_input_dict)
     resume.generate_pdf()
 
-    print("PY_qt:", py_qt_dict)
+    print("PY_qt:", pyqt_input_dict)
